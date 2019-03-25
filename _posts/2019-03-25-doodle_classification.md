@@ -9,11 +9,11 @@ I want to update this docs with my code
 
 The code may look like the following.
 
-​```python
+```python
 def print_hi(name):
   print("hello", name)
 print_hi('Tom')
-​```
+```
 
 How's my docs. Isn't it great!!
 
