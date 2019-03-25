@@ -7,6 +7,14 @@ This is just a test docs<br/>
 I want to update this docs with my code<br/>
 The code may look like the following.<br/>
 
+Today, I want to share my experience of joining one of Kaggle competition, [Quick, Draw! Doodle Recognition Challenge] https://www.kaggle.com/c/quickdraw-doodle-recognition
+
+1. Feature selection
+2. Model selection
+3. Evaluation
+4. Ensemble
+5. Submission
+
 ```python
 def print_hi(name):
     print("hello", name)
