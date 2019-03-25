@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Doodle Classification @ KAGGLE"
+title                    : "My Data Research Docs"
 title_separator          : "-"
 name                     : "Jinki Lee"
 description              : "An amazing website."
@@ -106,10 +106,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Jinki Lee"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an amazing person."
-  location         : "Somewhere"
+  bio              : "Data analyst @ AhnLab"
+  location         : "Seoul, South Korea"
   email            :
   links:
     - label: "Email"
