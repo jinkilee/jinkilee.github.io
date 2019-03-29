@@ -170,6 +170,7 @@ Here is the parameters of the above models.
 - Decay learning rate: multipy 0.75 on the old learning rate
 
 Here is the result of each models for public/private Learder Board(LB).
+
 | Models            | Use Imagenet | Public LB  | Private LB  |
 | ----------------- |:------------:|:----------:|:-----------:|
 | Inception Resnet  |       O      | 0.92898    | 0.93034     |
