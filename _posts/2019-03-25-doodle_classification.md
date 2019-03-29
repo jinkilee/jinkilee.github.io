@@ -3,11 +3,6 @@ title: "Doodle Classification @ Kaggle"
 date: 2019-03-25 08:26:28 -0400
 categories: jekyll update
 ---
-This is just a test docs<br/>
-I want to update this docs with my code<br/>
-The code may look like the following.<br/>
-https://gist.github.com/ihoneymon/652be052a0727ad59601<br/>
-
 Today, I want to share my experience of participating in one of Kaggle competition, [**Quick, Draw! Doodle Recognition Challenge**](https://www.kaggle.com/c/quickdraw-doodle-recognition) I will briefly introduce the challenge and start to explain dataset and others. This post may have the following sections.
 
 1. About this competition
@@ -15,7 +10,7 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 3. Feature extraction
 4. Model selection
 5. Ensemble
-6. Submission
+6. Conclusion & Further question
 
 About this competition
 ---------------
@@ -153,6 +148,7 @@ In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2
 
 All features are slightly right-biased. Majority of images have correlation coefficient value from 0.50 to 0.75. For my opinion, I think it is okay to use our three features, since it is not very biased(I know someone might think it is too much. If you think so, please leave me any comment. It will be very helpful)
 
+
 Model selection
 ---------------
 Actually, for this competition, I didn't carefully consider about modelling part. Rather than modelling part, I would like to spend more time for feature selection. Therefore, I just used some pre-implemented models in keras\_applications, such as MobileNet, Inception Resnet V2, Xception and so on.
@@ -185,6 +181,13 @@ Ensemble
 ---------------
 Even though Pretrained Xception model showed us comparably less accuracy than others, I wanted to know the effect of ensemble. Which result will be better?? Is it okay to have or not? The answer is that it is good to have. When we ensemble those models into one, we were able to reach accuracy of 0.94034.
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+
+Further question & Conclusion
+---------------
+I have several questions on this competition.
+- I have used correlation coefficient to evaluate my features. However, I don't think it is official or recommanded way to do it. Any other suggestion?
+- How to use better ensemble learning such as XgBoost or LightGBM? If I do want to use Xgboost or LightGBM, should I build my model from the scratch again?? Or it is just post-processing?
+
+Actually, this is my first time to fully participate in the Kaggle competition. I know I could not follow the official timeline. But that is not the important point. Learning from the challenge is important. Although I could not make up fully official rank at this time, someday... who knows :)
+
+This result was obtained by mean average ensembling. That is, add probability of all 340 labels and divided by the number of model, i.e. 4.
