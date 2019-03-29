@@ -17,7 +17,7 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 5. Ensemble
 6. Submission
 
-# 1. About this competition
+# About this competition
 ---------------
 In this competition, we are asked to build a model that classifies hand-drawn images. The model you build will classify 340 labels, and your model will be ranked based on top-3 accuracy of your model prediction.
 
@@ -153,7 +153,7 @@ In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2
 
 All features are slightly right-biased. Majority of images have correlation coefficient value from 0.50 to 0.75. For my opinion, I think it is okay to use our three features, since it is not very biased(I know someone might think it is too much. If you think so, please leave me any comment. It will be very helpful)
 
-4. Model selection
+# 4. Model selection
 ---------------
 Actually, for this competition, I didn't carefully consider about modelling part. Rather than modelling part, I would like to spend more time for feature selection. Therefore, I just used some pre-implemented models in keras\_applications, such as MobileNet, Inception Resnet V2, Xception and so on.
 I have built four models in total. They are 
@@ -181,7 +181,7 @@ Here is the result of each models for public/private Learder Board(LB).
 One thing to note is that I just decided to use the pretrained-Xception model(3rd line) even though its accuracy is far less than others. I wanted to know the effect of ensemble, which you can see in the next chapter.
 
 
-5. Ensemble
+# 5. Ensemble
 ---------------
 Even though Pretrained Xception model showed us comparably less accuracy than others, I wanted to know the effect of ensemble. Which result will be better?? Is it okay to have or not? The answer is that it is good to have. When we ensemble those models into one, we were able to reach accuracy of 0.94034.
 
