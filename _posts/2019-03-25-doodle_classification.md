@@ -17,18 +17,18 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 5. Ensemble
 6. Submission
 
-# About this competition
+About this competition
 ---------------
 In this competition, we are asked to build a model that classifies hand-drawn images. The model you build will classify 340 labels, and your model will be ranked based on top-3 accuracy of your model prediction.
 
 
-# 2. Dataset
+Dataset
 ---------------
 Datasets are a set of CSV files. Each CSV file is a collection of images that people drew and the name of CSV file is a target that people are asked to draw. For example, in ant.csv file, all ant images that people draw were collected, including the key\_id and country code, i.e. the country code where each image was drawn. 
 
 In this competition, participants are asked to classify images each of which are one of 340 labels. The list of labels are [LABEL]. Also it is important to note that each drawn image is provided in raw format and simplified format.
 
-## 2.1 Raw format dataset
+## Raw format dataset
 Raw format of data means no preprocessing has been applied on this dataset. People drew each target in their own devices, such as his i-phone, i-pad, desktop PC, or anything else. No matter what devices were used, raw-formatted CSV file contains values of each image including the key\_id and country code.
 FIG1 explains how an image is handled under the raw-format.
 
@@ -49,14 +49,14 @@ def print_hi(name):
 print_hi('Tom')
 ```
 
-## 2.2 Simplified format dataset
+## Simplified format dataset
 Everything is same as raw-formatted dataset, but few difference should be noted.
 - Each data point value is ranged from 0 to 255 (somehow normalized)
 - Each data point value is an int type.
 - No time data is provided for each image. That is, only (x, y) data is available.
 - Test dataset is provided in simplified format (NOT raw-file format)
 
-## 2.3 Read Raw/Simplified formatted dataset
+## Read Raw/Simplified formatted dataset
 Watching is better than Reading. For those who does not have enough time to read, dataset can be read as shown below.
 
 Firstly, we can read the raw-formatted file like this.
@@ -79,19 +79,19 @@ However the size of drawing column is much smaller with simplified-formatted fil
 - simplified image does not have time data.
 
 
-# 3. Feature extraction
+Feature extraction
 ---------------
-## 3.1 Re-organizing and shuffle dataset
+## Re-organizing and shuffle dataset
 Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in FIG2.
 
 ![FIG2: re-organization and shuffling of original data](http://jinkilee.github.io/img/doodle/fig2.png)
 
 Also note that you should run the above process for simplified format and raw format both, if you want to use both of them.
 
-## 3.2 Transforming images into 3 channel.
+## Transforming images into 3 channel.
 As explained in FIG1, image data is just a collection of (x, y). We should convert this form of image into (size, size, channel) shape, like a normal image data. Using CV2 library in Python, we could convert (x,y) dot images into (size, size, channel)-shaped image. Of course, this conversion is not necessary if you don't want to use CNN-like model. However, since we do not want to focus on type of deep learning model for this competition, we just selected CNN model, therefore we had to do this conversion.
 
-## 3.3 Think about what feature may be useful
+## Think about what feature may be useful
 It is time to think about what kind of features are useful for classifying hand-drawn image. In doodle, since every image is black-and-white colored, we do not need to think about actual R,G,B colors with 3 channel. Instead of RGB, we should consider different features that may be useful to classify images. 
 
 Think about drawing an i-phone. you will draw large vertical-long square and then screen and the button at the bottom. Most of people may draw in this order. I want to say that the order of drawing each stroke may be useful one of useful feature. To see if it is really useful feature, let's have a look with real data.
@@ -141,7 +141,7 @@ for t, s in enumerate(strokes):
 
 By stacking up our first, second, third features, we can make (size, size, 3) shape of data for each image whose values are ranged from 0 to 255. To provide our features into our model, we normalized our features to the range of 0-1. 
 
-## 3.4 How to evaluate features
+## How to evaluate features
 It is an important question. How can we verify our feature is good enough? It is actually hard question. But, for this competition, I decided to evaluate the quality of my features with correlation coefficient. If my feature represent almost same characteristics, then correlation coefficient will be close to one. In this case, we should consider to remove one of them, because those features are almost same features.
 To calculate the correlation coefficient, we unstacked (128, 128, 3) into three (128, 128) and flattened them. Next we compared f0, f1, f2 by calculating correlation coefficient. You can understand easily with FIG4 below.
 
@@ -153,7 +153,7 @@ In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2
 
 All features are slightly right-biased. Majority of images have correlation coefficient value from 0.50 to 0.75. For my opinion, I think it is okay to use our three features, since it is not very biased(I know someone might think it is too much. If you think so, please leave me any comment. It will be very helpful)
 
-# 4. Model selection
+Model selection
 ---------------
 Actually, for this competition, I didn't carefully consider about modelling part. Rather than modelling part, I would like to spend more time for feature selection. Therefore, I just used some pre-implemented models in keras\_applications, such as MobileNet, Inception Resnet V2, Xception and so on.
 I have built four models in total. They are 
@@ -181,7 +181,7 @@ Here is the result of each models for public/private Learder Board(LB).
 One thing to note is that I just decided to use the pretrained-Xception model(3rd line) even though its accuracy is far less than others. I wanted to know the effect of ensemble, which you can see in the next chapter.
 
 
-# 5. Ensemble
+Ensemble
 ---------------
 Even though Pretrained Xception model showed us comparably less accuracy than others, I wanted to know the effect of ensemble. Which result will be better?? Is it okay to have or not? The answer is that it is good to have. When we ensemble those models into one, we were able to reach accuracy of 0.94034.
 
