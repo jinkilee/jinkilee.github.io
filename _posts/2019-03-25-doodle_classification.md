@@ -14,15 +14,16 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 2. Dataset
 3. Feature extraction
 4. Model selection
-5. Evaluation
-6. Ensemble
-7. Submission
+5. Ensemble
+6. Submission
 
 # 1. About this competition
+---------------
 In this competition, we are asked to build a model that classifies hand-drawn images. The model you build will classify 340 labels, and your model will be ranked based on top-3 accuracy of your model prediction.
 
 
 # 2. Dataset
+---------------
 Datasets are a set of CSV files. Each CSV file is a collection of images that people drew and the name of CSV file is a target that people are asked to draw. For example, in ant.csv file, all ant images that people draw were collected, including the key\_id and country code, i.e. the country code where each image was drawn. 
 
 In this competition, participants are asked to classify images each of which are one of 340 labels. The list of labels are [LABEL]. Also it is important to note that each drawn image is provided in raw format and simplified format.
@@ -79,6 +80,7 @@ However the size of drawing column is much smaller with simplified-formatted fil
 
 
 # 3. Feature extraction
+---------------
 ## 3.1 Re-organizing and shuffle dataset
 Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in FIG2.
 
@@ -149,6 +151,38 @@ In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2
 
 ![FIG5: Histogram of correlation coefficient](http://jinkilee.github.io/img/doodle/fig5.png)
 
+All features are slightly right-biased. Majority of images have correlation coefficient value from 0.50 to 0.75. For my opinion, I think it is okay to use our three features, since it is not very biased(I know someone might think it is too much. If you think so, please leave me any comment. It will be very helpful)
+
+4. Model selection
+---------------
+Actually, for this competition, I didn't carefully consider about modelling part. Rather than modelling part, I would like to spend more time for feature selection. Therefore, I just used some pre-implemented models in keras\_applications, such as MobileNet, Inception Resnet V2, Xception and so on.
+I have built four models in total. They are 
+- Inception Resnet V2
+- Inception Resnet V2(imagenet pre-trained)
+- Xception
+- Xception(imagenet pre-trained)
+
+Here is the parameters of the above models.
+- Optimizer: AdamOptimizer
+- Learning Rate: 0.002
+- Image Size: 128 for Inception Resnet V2, 115 for Xception
+- Batch Size: from 400 to 500, according to the memory limit
+- Decay learning rate: multipy 0.75 on the old learning rate
+
+Here is the result of each models for public/private Learder Board(LB).
+| Models            | Use Imagenet | Public LB  | Private LB  |
+| ----------------- |:------------:|:----------:|:-----------:|
+| Inception Resnet  |       O      | 0.92898    | 0.93034     |
+| Inception Resnet  |       X      | 0.93123    | 0.92961     |
+| Xception          |       O      | 0.91699    | 0.91851     |
+| Xception          |       X      | 0.93040    | 0.92964     |
+
+One thing to note is that I just decided to use the pretrained-Xception model(3rd line) even though its accuracy is far less than others. I wanted to know the effect of ensemble, which you can see in the next chapter.
+
+
+5. Ensemble
+---------------
+Even though Pretrained Xception model showed us comparably less accuracy than others, I wanted to know the effect of ensemble. Which result will be better?? Is it okay to have or not? The answer is that it is good to have. When we ensemble those models into one, we were able to reach accuracy of 0.94034.
 
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
