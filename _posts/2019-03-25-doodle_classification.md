@@ -38,12 +38,6 @@ In a raw-formatted ZIP train file, there are 340 CSV files, because we are asked
 
 In this competition, we are supposed to be ranked from the accuracy of test dataset. This test dataset has xxxxx images and provided in raw-format.
 
-```python
-def print_hi(name):
-    print("hello", name)
-print_hi('Tom')
-```
-
 #### Simplified format dataset
 Everything is same as raw-formatted dataset, but few difference should be noted.
 - Each data point value is ranged from 0 to 255 (somehow normalized)
