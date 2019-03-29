@@ -28,7 +28,7 @@ Datasets are a set of CSV files. Each CSV file is a collection of images that pe
 
 In this competition, participants are asked to classify images each of which are one of 340 labels. The list of labels are [LABEL]. Also it is important to note that each drawn image is provided in raw format and simplified format.
 
-## Raw format dataset
+#### Raw format dataset
 Raw format of data means no preprocessing has been applied on this dataset. People drew each target in their own devices, such as his i-phone, i-pad, desktop PC, or anything else. No matter what devices were used, raw-formatted CSV file contains values of each image including the key\_id and country code.
 FIG1 explains how an image is handled under the raw-format.
 
@@ -49,14 +49,14 @@ def print_hi(name):
 print_hi('Tom')
 ```
 
-## Simplified format dataset
+#### Simplified format dataset
 Everything is same as raw-formatted dataset, but few difference should be noted.
 - Each data point value is ranged from 0 to 255 (somehow normalized)
 - Each data point value is an int type.
 - No time data is provided for each image. That is, only (x, y) data is available.
 - Test dataset is provided in simplified format (NOT raw-file format)
 
-## Read Raw/Simplified formatted dataset
+#### Read Raw/Simplified formatted dataset
 Watching is better than Reading. For those who does not have enough time to read, dataset can be read as shown below.
 
 Firstly, we can read the raw-formatted file like this.
@@ -81,17 +81,17 @@ However the size of drawing column is much smaller with simplified-formatted fil
 
 Feature extraction
 ---------------
-## Re-organizing and shuffle dataset
+#### Re-organizing and shuffle dataset
 Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in FIG2.
 
 ![FIG2: re-organization and shuffling of original data](http://jinkilee.github.io/img/doodle/fig2.png)
 
 Also note that you should run the above process for simplified format and raw format both, if you want to use both of them.
 
-## Transforming images into 3 channel.
+#### Transforming images into 3 channel.
 As explained in FIG1, image data is just a collection of (x, y). We should convert this form of image into (size, size, channel) shape, like a normal image data. Using CV2 library in Python, we could convert (x,y) dot images into (size, size, channel)-shaped image. Of course, this conversion is not necessary if you don't want to use CNN-like model. However, since we do not want to focus on type of deep learning model for this competition, we just selected CNN model, therefore we had to do this conversion.
 
-## Think about what feature may be useful
+#### Think about what feature may be useful
 It is time to think about what kind of features are useful for classifying hand-drawn image. In doodle, since every image is black-and-white colored, we do not need to think about actual R,G,B colors with 3 channel. Instead of RGB, we should consider different features that may be useful to classify images. 
 
 Think about drawing an i-phone. you will draw large vertical-long square and then screen and the button at the bottom. Most of people may draw in this order. I want to say that the order of drawing each stroke may be useful one of useful feature. To see if it is really useful feature, let's have a look with real data.
@@ -141,7 +141,7 @@ for t, s in enumerate(strokes):
 
 By stacking up our first, second, third features, we can make (size, size, 3) shape of data for each image whose values are ranged from 0 to 255. To provide our features into our model, we normalized our features to the range of 0-1. 
 
-## How to evaluate features
+#### How to evaluate features
 It is an important question. How can we verify our feature is good enough? It is actually hard question. But, for this competition, I decided to evaluate the quality of my features with correlation coefficient. If my feature represent almost same characteristics, then correlation coefficient will be close to one. In this case, we should consider to remove one of them, because those features are almost same features.
 To calculate the correlation coefficient, we unstacked (128, 128, 3) into three (128, 128) and flattened them. Next we compared f0, f1, f2 by calculating correlation coefficient. You can understand easily with FIG4 below.
 
