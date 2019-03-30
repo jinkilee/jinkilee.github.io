@@ -12,6 +12,8 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 5. Ensemble
 6. Conclusion & Further question
 
+You can also refer to [**github repository**](https://github.com/jinkilee/doodle.git) for my source code.
+
 About this competition
 ---------------
 In this competition, we are asked to build a model that classifies hand-drawn images. The model you build will classify 340 labels, and your model will be ranked based on top-3 accuracy of your model prediction.
@@ -185,3 +187,5 @@ I have several questions on this competition.
 Actually, this is my first time to fully participate in the Kaggle competition. I know I could not follow the official timeline. But that is not the important point. Learning from the challenge is important. Although I could not make up fully official rank at this time, someday... who knows :)
 
 This result was obtained by mean average ensembling. That is, add probability of all 340 labels and divided by the number of model, i.e. 4.
+
+
