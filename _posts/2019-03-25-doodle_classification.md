@@ -29,7 +29,7 @@ In this competition, participants are asked to classify images each of which are
 Raw format of data means no preprocessing has been applied on this dataset. People drew each target in their own devices, such as his i-phone, i-pad, desktop PC, or anything else. No matter what devices were used, raw-formatted CSV file contains values of each image including the key\_id and country code.
 FIG1 explains how an image is handled under the raw-format.
 
-![FIG1: representation of image data](http://jinkilee.github.io/img/doodle/fig1.png)
+![FIG1: representation of image data](http://jinkilee.github.io/img/doodle/fig1.png)<br/>
 *Figure 1: representation of image data*
 
 The raw-formatted train file is provided as a single ZIP file which contains list of following files.
