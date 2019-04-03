@@ -12,7 +12,7 @@ Today, I want to share my experience of participating in one of Kaggle competiti
 5. Ensemble
 6. Conclusion & Further question
 
-You can also refer to [**github repository**](https://github.com/jinkilee/doodle.git) for my source code.
+You can also refer to my [**github repository**](https://github.com/jinkilee/doodle.git) for my source code.
 
 About this competition
 ---------------
@@ -30,6 +30,7 @@ Raw format of data means no preprocessing has been applied on this dataset. Peop
 FIG1 explains how an image is handled under the raw-format.
 
 ![FIG1: representation of image data](http://jinkilee.github.io/img/doodle/fig1.png)
+*Figure 1: representation of image data*
 
 The raw-formatted train file is provided as a single ZIP file which contains list of following files.
 - The Eiffel Tower.csv: Image of Eiffel Tower has been collected.
