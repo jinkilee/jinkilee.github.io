@@ -1,5 +1,5 @@
 ---
-title: "Doodle Classification @ Kaggle"
+title: "Doodle Classification @ Kaggle(Unofficial 86th/1316)"
 date: 2019-03-25 08:26:28 -0400
 categories: jekyll update
 ---
