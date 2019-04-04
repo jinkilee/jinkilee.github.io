@@ -171,7 +171,7 @@ Here is the parameters of the above models.
 - Batch Size: from 400 to 500, according to the memory limit
 - Decay learning rate: multipy 0.75 on the old learning rate
 
-Here is the result of each models for public/private Learder Board(LB).
+Here is the result of each models for public/private Leaderboard(LB).
 
 | Models            | Use Imagenet | Public LB  | Private LB  |
 | ----------------- |:------------:|:----------:|:-----------:|
