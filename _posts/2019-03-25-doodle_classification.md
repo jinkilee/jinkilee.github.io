@@ -27,9 +27,9 @@ In this competition, participants are asked to classify images each of which are
 
 #### Raw format dataset
 Raw format of data means no preprocessing has been applied on this dataset. People drew each target in their own devices, such as his i-phone, i-pad, desktop PC, or anything else. No matter what devices were used, raw-formatted CSV file contains values of each image including the key\_id and country code.
-FIG1 explains how an image is handled under the raw-format.
+Figure 1 explains how an image is handled under the raw-format.
 
-| ![FIG1](http://jinkilee.github.io/img/doodle/fig1.png) |
+| ![Figure 1](http://jinkilee.github.io/img/doodle/fig1.png) |
 |:--:|
 | *Figure 1: Representation of image data* |
 
@@ -75,16 +75,16 @@ However the size of drawing column is much smaller with simplified-formatted fil
 Feature extraction
 ---------------
 #### Re-organizing and shuffle dataset
-Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in FIG2.
+Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in Figure 2.
 
-| ![FIG2](http://jinkilee.github.io/img/doodle/fig2.png) |
+| ![Figure 2](http://jinkilee.github.io/img/doodle/fig2.png) |
 |:--:|
 | *Figure 2: Re-orgamization and shuffling of original data* |
 
 Also note that you should run the above process for simplified format and raw format both, if you want to use both of them.
 
 #### Transforming images into 3 channel.
-As explained in FIG1, image data is just a collection of (x, y). We should convert this form of image into (size, size, channel) shape, like a normal image data. Using CV2 library in Python, we could convert (x,y) dot images into (size, size, channel)-shaped image. Of course, this conversion is not necessary if you don't want to use CNN-like model. However, since we do not want to focus on type of deep learning model for this competition, we just selected CNN model, therefore we had to do this conversion.
+As explained in Figure 1, image data is just a collection of (x, y). We should convert this form of image into (size, size, channel) shape, like a normal image data. Using CV2 library in Python, we could convert (x,y) dot images into (size, size, channel)-shaped image. Of course, this conversion is not necessary if you don't want to use CNN-like model. However, since we do not want to focus on type of deep learning model for this competition, we just selected CNN model, therefore we had to do this conversion.
 
 #### Think about what feature may be useful
 It is time to think about what kind of features are useful for classifying hand-drawn image. In doodle, since every image is black-and-white colored, we do not need to think about actual R,G,B colors with 3 channel. Instead of RGB, we should consider different features that may be useful to classify images. 
@@ -100,9 +100,9 @@ for t, s in enumerate(strokes):
 	f0 = 255 - min(t, 10)*13
 ```
 
-For example, when someone draw a square on doodle, he may use four strokes. Assuming he draw a square in the order of top -> right -> bottom -> left, each stroke would contain 255, 242, 229, 216. You can see the detail in FIG3.
+For example, when someone draw a square on doodle, he may use four strokes. Assuming he draw a square in the order of top -> right -> bottom -> left, each stroke would contain 255, 242, 229, 216. You can see the detail in Figure 3.
 
-| ![FIG3](http://jinkilee.github.io/img/doodle/fig3.png) |
+| ![Figure 3](http://jinkilee.github.io/img/doodle/fig3.png) |
 |:--:|
 | *Figure 3: Our first feature: the order of stroke* |
 
@@ -140,15 +140,15 @@ By stacking up our first, second, third features, we can make (size, size, 3) sh
 
 #### How to evaluate features
 It is an important question. How can we verify our feature is good enough? It is actually hard question. But, for this competition, I decided to evaluate the quality of my features with correlation coefficient. If my feature represent almost same characteristics, then correlation coefficient will be close to one. In this case, we should consider to remove one of them, because those features are almost same features.
-To calculate the correlation coefficient, we unstacked (128, 128, 3) into three (128, 128) and flattened them. Next we compared f0, f1, f2 by calculating correlation coefficient. You can understand easily with FIG4 below.
+To calculate the correlation coefficient, we unstacked (128, 128, 3) into three (128, 128) and flattened them. Next we compared f0, f1, f2 by calculating correlation coefficient. You can understand easily with Figure 4 below.
 
-![FIG4](http://jinkilee.github.io/img/doodle/fig4.png)
+![Figure 4](http://jinkilee.github.io/img/doodle/fig4.png)
 |:--:|
 | *Figure 4: Correlation coefficient of features* |
 
-In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2. Getting correlation coefficients from only one image is not enough. So, we did the same things over and aver with 34,000 images, therefore collected 34,000 set of correlation coefficient for each feature. For each feature we can plot a histogram and the result is FIG5.
+In Figure 4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2. Getting correlation coefficients from only one image is not enough. So, we did the same things over and aver with 34,000 images, therefore collected 34,000 set of correlation coefficient for each feature. For each feature we can plot a histogram and the result is Figure 5.
 
-![FIG5](http://jinkilee.github.io/img/doodle/fig5.png)
+![Figure 5](http://jinkilee.github.io/img/doodle/fig5.png)
 |:--:|
 | *Figure 5: Histogram of correlation coefficient* |
 
