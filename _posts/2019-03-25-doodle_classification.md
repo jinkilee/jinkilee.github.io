@@ -77,7 +77,9 @@ Feature extraction
 #### Re-organizing and shuffle dataset
 Before we extract feature, we should re-organize and shuffle our dataset, because each CSV file has only one label. We are going to read a chunck of data from each CSV and make a new CSV file which contains 340 different labels. Then to save capacity of disk space, we compressed the new CSV files. In this way, we created 100 newly-compressed CSV files all of which contain 340 labels, i.e. well-shuffled. Whole process of re-organization of dataset is explained in FIG2.
 
-![FIG2: re-organization and shuffling of original data](http://jinkilee.github.io/img/doodle/fig2.png)
+| ![FIG2](http://jinkilee.github.io/img/doodle/fig2.png) |
+|:--:|
+| *Figure 2: Re-orgamization and shuffling of original data* |
 
 Also note that you should run the above process for simplified format and raw format both, if you want to use both of them.
 
@@ -100,7 +102,9 @@ for t, s in enumerate(strokes):
 
 For example, when someone draw a square on doodle, he may use four strokes. Assuming he draw a square in the order of top -> right -> bottom -> left, each stroke would contain 255, 242, 229, 216. You can see the detail in FIG3.
 
-![FIG3: our first feature: the order of stroke](http://jinkilee.github.io/img/doodle/fig3.png)
+| ![FIG3](http://jinkilee.github.io/img/doodle/fig3.png) |
+|:--:|
+| *Figure 3: Our first feature: the order of stroke* |
 
 Our second feature is the number of points in one stroke for an unit time, i.e. how many points someone produce in a given time. This feature can be produced with the following code.
 
@@ -138,11 +142,15 @@ By stacking up our first, second, third features, we can make (size, size, 3) sh
 It is an important question. How can we verify our feature is good enough? It is actually hard question. But, for this competition, I decided to evaluate the quality of my features with correlation coefficient. If my feature represent almost same characteristics, then correlation coefficient will be close to one. In this case, we should consider to remove one of them, because those features are almost same features.
 To calculate the correlation coefficient, we unstacked (128, 128, 3) into three (128, 128) and flattened them. Next we compared f0, f1, f2 by calculating correlation coefficient. You can understand easily with FIG4 below.
 
-![FIG4: Correlation coefficient of features](http://jinkilee.github.io/img/doodle/fig4.png)
+![FIG4](http://jinkilee.github.io/img/doodle/fig4.png)
+|:--:|
+| *Figure 4: Correlation coefficient of features* |
 
 In FIG4, we have got three correlation coefficients, i.e. f0-f1, f1-f2 and f0-f2. Getting correlation coefficients from only one image is not enough. So, we did the same things over and aver with 34,000 images, therefore collected 34,000 set of correlation coefficient for each feature. For each feature we can plot a histogram and the result is FIG5.
 
-![FIG5: Histogram of correlation coefficient](http://jinkilee.github.io/img/doodle/fig5.png)
+![FIG5](http://jinkilee.github.io/img/doodle/fig5.png)
+|:--:|
+| *Figure 5: Histogram of correlation coefficient* |
 
 All features are slightly right-biased. Majority of images have correlation coefficient value from 0.50 to 0.75. For my opinion, I think it is okay to use our three features, since it is not very biased(I know someone might think it is too much. If you think so, please leave me any comment. It will be very helpful)
 
