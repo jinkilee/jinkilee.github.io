@@ -77,6 +77,7 @@ Likewise, RIGHT, DOWNWARD, LEFT direction also can be implemented with exactly s
 Result and Comparison
 ---------------
 Cuda implementation of deqn can be measured per kernel. By comparing the execution time of each kernel, I could get the following result.
+
 ![Figure 1](http://jinkilee.github.io/img/cuda/fig1.png)
 |:--:|
 | *Figure 1: Per-Kernel Execution Time* |
