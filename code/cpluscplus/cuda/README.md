@@ -7,11 +7,6 @@ categories: jekyll update
 Implementation with Cuda
 ---------------
 The list of Kernel function to implement is listed on the following table.
-Kernel function name	Called by	Executed by
-init_with_Cuda	initialiseCudaKernel	GPU
-reset_with_Cuda	resetCudaKernel	GPU
-diffuse_with_Cuda	diffuseCudaKernel	GPU
-reflectBoundaries_with_Cuda	reflectBoundariesCudaKernel	GPU
 
 | Kernel function name        | Called by                    | Executed by |
 | --------------------------- |:----------------------------:|:-----------:|
@@ -81,14 +76,13 @@ Likewise, RIGHT, DOWNWARD, LEFT direction also can be implemented with exactly s
 
 Result and Comparison
 ---------------
-Cuda Implementation can be run with different size of BLOCK_SIZE. In the vanilla version, the BLOCK_SIZE is equivalent to 256. By using different number of BLOCK_SIZE, we can get the following execution time. (performed with big_square.in)
-# Execution time with different BLOCK_SIZE
-Size = 36, 64, 128, 256, 512
+Cuda implementation of deqn can be measured per kernel. By comparing the execution time of each kernel, I could get the following result.
+![Figure 1](http://jinkilee.github.io/img/cuda/fig1.png)
+|:--:|
+| *Figure 1: Per-Kernel Execution Time* |
 
-By comparing the result from different BLOCK_SIZE, it can be concluded that …..
+From the above graph, I can note that I can obtain high performance with Cuda implementation, because each tread is supposed to run only one iteration of for loop. By comparing execution time with other implementation of deqn, Cuda shows the highest performance with 0.5088 seconds for big_square.in.
 
-With Cuda implementation, deqn works much faster than OpenMP and OpenMPI. By using big_square.in for evaluation, we can get the following result. 
-# Performance with using Cuda, compared to best performance of OpenMP and OpenMPI.
-
-
-
+![Figure 2](http://jinkilee.github.io/img/cuda/fig2.png)
+|:--:|
+| *Figure 2: Time Comparision between different implementation* |
