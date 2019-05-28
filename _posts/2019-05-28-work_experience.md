@@ -39,8 +39,9 @@ Kaggle에서 'Quick, Draw! Doodle Recognition Challenge'를 참가했습니다. 
 - 데이터 전처리 기법 연구 및 개발
 - 데이터 모델링과 앙상블 기법 연구 및 개발
 
-#### 첨부파일
+#### 첨부파일 및 github
 - kaggle.pdf 참고
+- https://github.com/jinkilee/doodle
 
 WISA 컨퍼런스 논문 제출
 ---------------
