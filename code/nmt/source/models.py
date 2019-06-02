@@ -1,5 +1,21 @@
 import tensorflow as tf
 
+
+def gru(units):
+	# If you have a GPU, we recommend using CuDNNGRU(provides a 3x speedup than GRU)
+	# the code automatically does that.
+	if tf.test.is_gpu_available():
+		return tf.keras.layers.CuDNNGRU(units, 
+					return_sequences=True, 
+					return_state=True, 
+					recurrent_initializer='glorot_uniform')
+	else:
+		return tf.keras.layers.GRU(units, 
+					return_sequences=True, 
+					return_state=True, 
+					recurrent_activation='sigmoid', 
+					recurrent_initializer='glorot_uniform')
+
 class Encoder(tf.keras.Model):
 	def __init__(self, vocab_size, embedding_dim, enc_units, batch_sz):
 		super(Encoder, self).__init__()
