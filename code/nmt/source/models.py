@@ -21,11 +21,15 @@ class Encoder(tf.keras.Model):
 		super(Encoder, self).__init__()
 		self.batch_sz = batch_sz
 		self.enc_units = enc_units
-		self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
+		self._embedding_dim = embedding_dim
+		self.embedding = tf.keras.layers.Embedding(vocab_size, self._embedding_dim)
 		self.gru = tf.keras.layers.GRU(self.enc_units,
 								   return_sequences=True,
 								   return_state=True,
 								   recurrent_initializer='glorot_uniform')
+
+	def __repr__(self):
+		return 'Encoder -> enc_units:{}, embedding_dim:{}'.format(self.enc_units, self._embedding_dim)
 
 	def call(self, x, hidden):
 		x = self.embedding(x)
@@ -40,6 +44,7 @@ class Decoder(tf.keras.Model):
 		super(Decoder, self).__init__()
 		self.batch_sz = batch_sz
 		self.dec_units = dec_units
+		self._embedding_dim = embedding_dim
 		self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
 		self.gru = tf.keras.layers.GRU(self.dec_units,
 									   return_sequences=True,
@@ -49,6 +54,9 @@ class Decoder(tf.keras.Model):
 
 		# used for attention
 		self.attention = BahdanauAttention(self.dec_units)
+
+	def __repr__(self):
+		return 'Decoder -> dec_units:{}, embedding_dim:{}'.format(self.dec_units, self._embedding_dim)
 
 	def call(self, x, hidden, enc_output):
 		# enc_output shape == (batch_size, max_length, hidden_size)

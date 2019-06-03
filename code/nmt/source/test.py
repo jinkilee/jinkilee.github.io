@@ -15,8 +15,8 @@ logging.set_verbosity(logging.INFO)
 logging.set_verbosity(logging.DEBUG)
 
 BATCH_SIZE = 64
-embedding_dim = 256
-units = 1024
+embedding_dim = 128
+units = 512
 
 def unicode_to_ascii(s):
 	return ''.join(c for c in unicodedata.normalize('NFD', s)
@@ -62,7 +62,7 @@ def tokenize(sent):
 	return sequences, sent_tokenizer
 
 # read dataset
-en, kr = read_data('/data/nmt/kor.txt')
+en, kr = read_data('/data/nmt/news.txt')
 en_seq, en_tok = tokenize(en)
 kr_seq, kr_tok = tokenize(kr)
 en_seq_train, en_seq_val, kr_seq_train, kr_seq_val = train_test_split(en_seq, kr_seq, test_size=0.1)
@@ -86,7 +86,7 @@ attention_layer = BahdanauAttention(10)
 # sample input
 sample_hidden = encoder.initialize_hidden_state()
 sample_output, sample_hidden = encoder(example_input_batch, sample_hidden)
-sample_decoder_output, _, _ = decoder(tf.random.uniform((64, 1)), sample_hidden, sample_output)
+sample_decoder_output, _, _ = decoder(tf.random.uniform((BATCH_SIZE, 1)), sample_hidden, sample_output)
 attention_result, attention_weights = attention_layer(sample_hidden, sample_output)
 logging.debug('Encoder Hidden state shape: (batch size, units) {}'.format(sample_hidden.shape))
 logging.debug('Encoder output shape: (batch size, sequence length, units) {}'.format(sample_output.shape))
@@ -123,6 +123,7 @@ def train_step(inp, targ, enc_hidden):
 			loss += loss_function(targ[:, t], predictions)
 			# using teacher forcing
 			dec_input = tf.expand_dims(targ[:, t], 1)
+			print(t, predictions, dec_hidden)
 
 	batch_loss = (loss / int(targ.shape[1]))
 	variables = encoder.trainable_variables + decoder.trainable_variables
@@ -142,6 +143,7 @@ for epoch in range(EPOCHS):
 	total_loss = 0
 
 	for (batch, (inp, targ)) in enumerate(dataset.take(steps_per_epoch)):
+		print(inp.shape, targ.shape)
 		batch_loss = train_step(inp, targ, enc_hidden)
 		total_loss += batch_loss
 
