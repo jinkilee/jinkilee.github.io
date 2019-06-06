@@ -14,9 +14,9 @@ from absl import logging
 logging.set_verbosity(logging.INFO)
 logging.set_verbosity(logging.DEBUG)
 
-BATCH_SIZE = 64
-embedding_dim = 128
-units = 512
+BATCH_SIZE = 16
+embedding_dim = 32  # originally 128
+units = 64			# originally 512
 
 def unicode_to_ascii(s):
 	return ''.join(c for c in unicodedata.normalize('NFD', s)
@@ -62,7 +62,7 @@ def tokenize(sent):
 	return sequences, sent_tokenizer
 
 # read dataset
-en, kr = read_data('/data/nmt/news.txt')
+en, kr = read_data('/data/nmt/corpus.txt')
 en_seq, en_tok = tokenize(en)
 kr_seq, kr_tok = tokenize(kr)
 en_seq_train, en_seq_val, kr_seq_train, kr_seq_val = train_test_split(en_seq, kr_seq, test_size=0.1)
@@ -143,9 +143,9 @@ for epoch in range(EPOCHS):
 	total_loss = 0
 
 	for (batch, (inp, targ)) in enumerate(dataset.take(steps_per_epoch)):
-		print(inp.shape, targ.shape)
 		batch_loss = train_step(inp, targ, enc_hidden)
 		total_loss += batch_loss
+		print('{} {} loss: {}'.format(inp.shape, targ.shape, batch_loss))
 
 	# saving (checkpoint) the model every 2 epochs
 	if (epoch + 1) % 2 == 0:
