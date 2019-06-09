@@ -1,0 +1,2 @@
+model_checkpoint_path: "model-b64-e64-u512-a10-20"
+all_model_checkpoint_paths: "model-b64-e64-u512-a10-20"
