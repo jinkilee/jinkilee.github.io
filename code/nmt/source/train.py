@@ -56,10 +56,7 @@ def train_step(inp, targ, enc_hidden):
 	optimizer.apply_gradients(zip(gradients, variables))
 	return batch_loss
 
-#from get_model import optimizer
-# optimizer
-# optimizer = tf.keras.optimizers.Adam()
-
+# define optimizer
 optimizer = tf.keras.optimizers.Adam()
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
     from_logits=True, reduction='none')
