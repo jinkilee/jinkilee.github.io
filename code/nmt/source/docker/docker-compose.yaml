@@ -1,0 +1,22 @@
+version: '3'
+services:
+    lab:
+        container_name: lab-container
+        image: lab-image
+        restart: always
+        env_file:
+            - container/lab/.env
+        user: root
+        build:
+            dockerfile: container/lab/Dockerfile
+            context: .
+        labels:
+            description: jupyter lab on docker
+            name: jupyter notebook 
+        ports:
+            - "8888:8888"
+        volumes:
+            - /anything/git/jinkilee.github.io/code/nmt/source/ipynb:/home/notebooks
+            - /data:/data
+        command:
+            jupyter lab --allow-root --no-browser --ip=0.0.0.0

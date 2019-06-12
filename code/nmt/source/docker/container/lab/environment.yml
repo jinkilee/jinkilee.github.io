@@ -1,0 +1,18 @@
+name: base
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - fastai
+dependencies:
+  - python=3.6
+  - pandas
+  - numpy
+  - jupyterhub
+  - jupyterlab
+  - jupyter_contrib_nbextensions
+  - jupyter_nbextensions_configurator
+  - pip:
+      - fastai
+      - nvidia-ml-py3
+      - dataclasses
