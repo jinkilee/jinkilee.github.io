@@ -1,198 +1,137 @@
+import logging
 import torch
 import numpy as np
 from torch import nn
 
-def conv3x3(in_planes, out_planes, stride=1, groups=1, dilation=1):
-	"""3x3 convolution with padding"""
-	return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
-					 padding=dilation, groups=groups, bias=False, dilation=dilation)
 
+log = logging.getLogger('cnn')
+log.setLevel(logging.INFO)
 
-def conv1x1(in_planes, out_planes, stride=1):
-	"""1x1 convolution"""
-	return nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False)
-
-
-class BasicBlock(nn.Module):
-	expansion = 1
-	def __init__(self, inplanes, planes, stride=1, downsample=None, groups=1,
-				 base_width=64, dilation=1, norm_layer=None):
-		super(BasicBlock, self).__init__()
-		if norm_layer is None:
-			norm_layer = nn.BatchNorm2d
-		if groups != 1 or base_width != 64:
-			raise ValueError('BasicBlock only supports groups=1 and base_width=64')
-		if dilation > 1:
-			raise NotImplementedError("Dilation > 1 not supported in BasicBlock")
-		# Both self.conv1 and self.downsample layers downsample the input when stride != 1
-		self.conv1 = conv3x3(inplanes, planes, stride)
-		self.bn1 = norm_layer(planes)
-		self.relu = nn.ReLU(inplace=True)
-		self.conv2 = conv3x3(planes, planes)
-		self.bn2 = norm_layer(planes)
-		self.downsample = downsample
-		self.stride = stride
-
-	def forward(self, x):
-		identity = x
-
-		out = self.conv1(x)
-		out = self.bn1(out)
-		out = self.relu(out)
-		out = self.conv2(out)
-		out = self.bn2(out)
-
-		if self.downsample is not None:
-			identity = self.downsample(x)
-
-		out += identity
-		out = self.relu(out)
-
-		return out
-
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+log.addHandler(stream_handler)
 
 class Bottleneck(nn.Module):
 	expansion = 4
-	def __init__(self, inplanes, planes, stride=1, downsample=None, groups=1,
-				 base_width=64, dilation=1, norm_layer=None):
+	def __init__(self, in_channel, n_filters, downsample=None, stride=1):
 		super(Bottleneck, self).__init__()
-		if norm_layer is None:
-			norm_layer = nn.BatchNorm2d
-		width = int(planes * (base_width / 64.)) * groups
-		# Both self.conv2 and self.downsample layers downsample the input when stride != 1
-		self.conv1 = conv1x1(inplanes, width)
-		self.bn1 = norm_layer(width)
-		self.conv2 = conv3x3(width, width, stride, groups, dilation)
-		self.bn2 = norm_layer(width)
-		self.conv3 = conv1x1(width, planes * self.expansion)
-		self.bn3 = norm_layer(planes * self.expansion)
-		self.relu = nn.ReLU(inplace=True)
+		# first 1x1
+		self.cv1 = nn.Conv2d(in_channel, n_filters, kernel_size=1)
+		self.bn1 = nn.BatchNorm2d(n_filters)
+
+		# second 3x3
+		# FIXME: padding=1 and stride=2 should be controlled
+		self.cv2 = nn.Conv2d(n_filters, n_filters, kernel_size=3, padding=1, stride=stride)
+		self.bn2 = nn.BatchNorm2d(n_filters)
+
+		# third 1x1
+		self.cv3 = nn.Conv2d(n_filters, n_filters*self.expansion, kernel_size=1)
+		self.bn3 = nn.BatchNorm2d(n_filters*self.expansion)
+		self.relu = nn.ReLU()
+
+		# downsample
 		self.downsample = downsample
-		self.stride = stride
 
 	def forward(self, x):
 		identity = x
-
-		out = self.conv1(x)
+		out = self.cv1(x)
 		out = self.bn1(out)
-		out = self.relu(out)
+		log.debug('cv1 result: {}'.format(out.shape))
 
-		out = self.conv2(out)
+		out = self.cv2(out)
 		out = self.bn2(out)
-		out = self.relu(out)
+		log.debug('cv2 result: {}'.format(out.shape))
 
-		out = self.conv3(out)
+		out = self.cv3(out)
 		out = self.bn3(out)
+		out = self.relu(out)
+		log.debug('cv3 result: {}'.format(out.shape))
 
+		# do something about downsample here
 		if self.downsample is not None:
 			identity = self.downsample(x)
 
 		out += identity
 		out = self.relu(out)
 
+		log.debug('out: {}'.format(out.shape))
+		log.debug('identity: {}'.format(identity.shape))
 		return out
 
 
+def get_padding(i):
+	return int(np.ceil(i/2) - 1)
 
-class ResNet(nn.Module):
-	def __init__(self, block, layers, num_classes=1000, zero_init_residual=False,
-				 groups=1, width_per_group=64, replace_stride_with_dilation=None,
-				 norm_layer=None):
-		super(ResNet, self).__init__()
-		if norm_layer is None:
-			norm_layer = nn.BatchNorm2d
-		self._norm_layer = norm_layer
+class Resnet(nn.Module):
+	def __init__(self, bottleneck, layers, num_classes=1000, zero_init_residual=False, in_channel=3):
+		super(Resnet, self).__init__()
+	
+		self.planes = 64
+		k = 7
+		n_pad = get_padding(k)
+		self.cv1 = nn.Conv2d(in_channel, self.planes, kernel_size=k, padding=n_pad, stride=2, bias=False)
+		self.bn1 = nn.BatchNorm2d(self.planes)
+		self.relu = nn.ReLU()
+		self.mx1 = nn.MaxPool2d(kernel_size=3, stride=2, padding=get_padding(3))
 
-		self.inplanes = 64
-		self.dilation = 1
-		if replace_stride_with_dilation is None:
-			# each element in the tuple indicates if we should replace
-			# the 2x2 stride with a dilated convolution instead
-			replace_stride_with_dilation = [False, False, False]
-		if len(replace_stride_with_dilation) != 3:
-			raise ValueError("replace_stride_with_dilation should be None "
-							 "or a 3-element tuple, got {}".format(replace_stride_with_dilation))
-		self.groups = groups
-		self.base_width = width_per_group
-		self.conv1 = nn.Conv2d(3, self.inplanes, kernel_size=7, stride=2, padding=3,
-							   bias=False)
-		self.bn1 = norm_layer(self.inplanes)
-		self.relu = nn.ReLU(inplace=True)
-		self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-		self.layer1 = self._make_layer(block, 64, layers[0])	# should be 64 not 3
-		self.layer2 = self._make_layer(block, 128, layers[1], stride=2,
-									   dilate=replace_stride_with_dilation[0])
-		self.layer3 = self._make_layer(block, 256, layers[2], stride=2,
-									   dilate=replace_stride_with_dilation[1])
-		self.layer4 = self._make_layer(block, 512, layers[3], stride=2,
-									   dilate=replace_stride_with_dilation[2])
-		self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-		self.fc = nn.Linear(512 * block.expansion, num_classes)
+		# add bottleneck layer
+		self.layer1 = self._add_bottleneck_layer(bottleneck, 64, layers[0])
+		self.layer2 = self._add_bottleneck_layer(bottleneck, 128, layers[1], stride=2)
+		self.layer3 = self._add_bottleneck_layer(bottleneck, 256, layers[2], stride=2)
+		self.layer4 = self._add_bottleneck_layer(bottleneck, 512, layers[3], stride=2)
 
-		for m in self.modules():
-			if isinstance(m, nn.Conv2d):
-				nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-			elif isinstance(m, (nn.BatchNorm2d, nn.GroupNorm)):
-				nn.init.constant_(m.weight, 1)
-				nn.init.constant_(m.bias, 0)
-
-		# Zero-initialize the last BN in each residual branch,
-		# so that the residual branch starts with zeros, and each residual block behaves like an identity.
-		# This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677
-		if zero_init_residual:
-			for m in self.modules():
-				if isinstance(m, Bottleneck):
-					nn.init.constant_(m.bn3.weight, 0)
-				elif isinstance(m, BasicBlock):
-					nn.init.constant_(m.bn2.weight, 0)
-
-	def _make_layer(self, block, planes, blocks, stride=1, dilate=False):
-		norm_layer = self._norm_layer
+		# average pooling and fully-connected layer
+		self.avgpool = nn.AdaptiveAvgPool2d((1,1))
+		self.fc = nn.Linear(512*bottleneck.expansion, num_classes)
+		
+	def _add_bottleneck_layer(self, block, out_planes, n_block, stride=1):
 		downsample = None
-		previous_dilation = self.dilation
-		if dilate:
-			self.dilation *= stride
-			stride = 1
-		if stride != 1 or self.inplanes != planes * block.expansion:
-			downsample = nn.Sequential(
-				conv1x1(self.inplanes, planes * block.expansion, stride),
-				norm_layer(planes * block.expansion),
-			)
+		if stride != 1 or self.planes != out_planes*block.expansion:
+			# do downsampling
+			downsample = nn.Sequential(*[
+				nn.Conv2d(self.planes, out_planes*block.expansion, kernel_size=1, stride=stride),
+				nn.BatchNorm2d(out_planes*block.expansion)
+			])
+			log.debug('downsample {}'.format(downsample))
 
 		layers = []
-		layers.append(block(self.inplanes, planes, stride, downsample, self.groups,
-							self.base_width, previous_dilation, norm_layer))
-		self.inplanes = planes * block.expansion
-		for _ in range(1, blocks):
-			layers.append(block(self.inplanes, planes, groups=self.groups,
-								base_width=self.base_width, dilation=self.dilation,
-								norm_layer=norm_layer))
-
+		layers.append(block(self.planes, out_planes, downsample=downsample, stride=stride))
+		self.planes = out_planes*block.expansion
+		for _ in range(1, n_block):
+			layers.append(block(self.planes, out_planes))
 		return nn.Sequential(*layers)
 
 	def forward(self, x):
-		x = self.conv1(x)
-		x = self.bn1(x)
-		x = self.relu(x)
-		x = self.maxpool(x)
+		out = self.cv1(x)
+		out = self.bn1(out)
+		out = self.relu(out)
+		out = self.mx1(out)
+		log.info('first basic convolution layer has been added')
 
-		x = self.layer1(x)
-		x = self.layer2(x)
-		x = self.layer3(x)
-		x = self.layer4(x)
+		out = self.layer1(out)
+		out = self.layer2(out)
+		out = self.layer3(out)
+		out = self.layer4(out)
+		log.info('all bottleneck layers has been added')
 
-		x = self.avgpool(x)
-		x = x.reshape(x.size(0), -1)
-		x = self.fc(x)
+		# for classifier
+		out = self.avgpool(out)
+		out = self.fc(out.reshape(out.shape[0], -1))
+		log.info('fully-connected layer has been added')
 
-		return x
+		# FIXME: do something more here
+		return out
 
-
-bottelneck = Bottleneck
-resnet = ResNet(bottelneck, [3,4,5,6])
 
 bs = 5
-batch_x = np.random.random((bs, 3, 500, 400))
-batch_x = torch.Tensor(batch_x)
+images = np.random.random((bs, 3, 300, 200))
+images = torch.Tensor(images)
+bottleneck = Bottleneck
+model = Resnet(bottleneck, [3,4,5,3], num_classes=10)
+pred = model(images)
+print(pred.shape)
 
-x = resnet(batch_x)
+
+
+
