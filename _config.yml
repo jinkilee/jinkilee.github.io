@@ -108,9 +108,9 @@ analytics:
 author:
   name             : "Jinki Lee"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Data analyst @ AhnLab"
+  bio              : "Machine Learning Scientist @ POSCO ICT"
   location         : "Seoul, South Korea"
-  email            :
+  email            : "jinkilee73@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
