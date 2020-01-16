@@ -85,6 +85,12 @@ class Resnet(nn.Module):
 		self.avgpool = nn.AdaptiveAvgPool2d((1,1))
 		self.fc = nn.Linear(512*bottleneck.expansion, num_classes)
 		
+		# zero-initialize the residual block
+		if zero_init_residual:
+			for m in self.modules():
+				if isinstance(m, Bottleneck):
+					nn.init.constant_(m.bn3.weight, 0)
+
 	def _add_bottleneck_layer(self, block, out_planes, n_block, stride=1):
 		downsample = None
 		if stride != 1 or self.planes != out_planes*block.expansion:
@@ -120,7 +126,6 @@ class Resnet(nn.Module):
 		out = self.fc(out.reshape(out.shape[0], -1))
 		log.info('fully-connected layer has been added')
 
-		# FIXME: do something more here
 		return out
 
 
