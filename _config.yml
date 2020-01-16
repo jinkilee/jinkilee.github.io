@@ -108,11 +108,11 @@ analytics:
 author:
   name             : "Jinki Lee"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Machine Learning Scientist @ POSCO ICT"
+  bio              : "Machine Learning Scientist \n@ POSCO ICT"
   location         : "Seoul, South Korea"
   email            : "jinkilee73@gmail.com"
   links:
-    - label: "Email"
+    - label: "jinkilee73@gmail.com"
       icon: "fas fa-fw fa-envelope-square"
       # url: mailto:your.name@email.com
     - label: "Website"
