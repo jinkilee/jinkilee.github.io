@@ -10,15 +10,11 @@ markdown: kramdown
 #Links that will appear in the navbar
 primarylinks:
  - title: Blog
-   url: http://automateddeveloper.blogspot.com/
+   url: http://operatingsystems.tistory.com
  - title: GitHub
-   url: https://github.com/robhinds
- - title: StackOverflow
-   url: http://stackoverflow.com/users/258813/rhinds
- - title: DZone
-   url: https://dzone.com/users/899489/rhinds.html
+   url: https://github.com/jinkilee
  - title: LinkedIn
-   url: https://www.linkedin.com/pub/rob-hinds/21/361/3b1
+   url: https://www.linkedin.com/in/jinki-lee-355546b1/
 
 #Any buzzword skills you want to include
 skills:
@@ -34,33 +30,36 @@ blogfeed: https://automateddeveloper.blogspot.com/feeds/posts/default?alt=json
 
 #Work experience is required
 roles:
- - title: CTO
-   start: 2017
+ - title: Machine Learning Scientist
+   start: 2019
    end: Ongoing
-   employer: Basement Crowd
-   description: Legaltech startup producing a range of innovative legal products. Products include <a href="https://www.juriosity.com" taget="_blank">Juriosity</a>, <a href="https://www.fromcounsel.com" taget="_blank">FromCounsel</a>, <a href="https://www.sparqa.com" taget="_blank">Sparqa</a>.
- - title: Senior Engineer
+   employer: POSCO ICT
+   description: I am performing AI/ML projects about different industrial areas which includes computer vision, anomaly detection and etc.
+ - title: Data Scientist
    start: 2016
-   end: 2017
-   employer: Emerald Street Ventures
-   description: Emerald Street Ventures was established as an incubator vehicle for the development of a number of software and legal-tech projects, and a rapidly growing, London-based start-up using innovative technologies to revolutionise and change the software and legal-tech landscape. Working with a range of cutting edge technologies and techniques including Scala, Cassandra, CoreOS, a variety of Machine Learning techniques.
- - title: Senior Engineer
+   end: 2019
+   employer: AhnLab
+   description: I performed R&D operation for building and deploying ML/AI model for automating SoC operation.
+ - title: Security Engineer
    start: 2012
-   end: 2016
-   employer: Covestor
-   description: Covestor is an investment marketplace startup that was successfully acquired by Interactive Brokers in 2015. <br/> Working as a senior engineer, I worked closely with the CTO and across the full-stack, I was involved in all aspects of the technology including the website and back-end services.
- - title: Associate Manager
-   start: 2005
-   end: 2012
-   employer: Accenture
-   description: Working on a range of functional and technical roles, primarily working on client sites in Financial Services in London and Europe.
+   end: 2015
+   employer: AhnLab
+   description: I performed 24/7 SoC operation for monitoring incoming cyber security attack and took an proper action according to the security policy. Also I managed different types of security devices and researched zero-day attacks for potential threat.
 
 #Education is required
 education:
+ - level: Master of Science (MSc)
+   date: 2015
+   subject: Data Analytics
+   school: University of Warwick
  - level: Bachelor of Science (B.Sc.)
-   date: 2003
-   subject: Artificial Intelligence and Computer Science
-   school: University of Birmingham
+   date: 2008
+   subject: Computer Science
+   school: SungKyunKwan University
+ - level: Bachelor of Science (B.Sc.)
+   date: 2006
+   subject: Computer Science
+   school: Kookmin Univeristy
 
 #This section is optional (as is the image link below)
 coursera:
@@ -89,16 +88,10 @@ speakerdeck:
 
 #List of interesting Github repo/projects to include - optional
 github:
- - robhinds/robhinds.github.io
- - robhinds/ScaLambda
- - robhinds/opinionated-akka-http
- - robhinds/food2vec
- - robhinds/microservices
- - robhinds/spring-social-geeklist
- - robhinds/spring-social-stackoverflow
- - robhinds/genotype
- - robhinds/footweets
- - robhinds/ElasticSearchGradle
+ - jinkilee/doodle
+ - jinkilee/ieee
+ - jinkilee/jigsaw
+ - jinkilee/jinkilee.github.io
 
 #Stackoverflow flair is optional
 stackoverflow:
