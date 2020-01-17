@@ -30,7 +30,6 @@ skills:
  - Natural Language Processing
  - Computer Vision
  - Machine Learning
- - C/C++
  - Java
  - Tensorflow/Pytorch
 
@@ -38,5 +37,5 @@ skills:
 blogfeed: https://automateddeveloper.blogspot.com/feeds/posts/default?alt=json
 
 intro: |
-I am a machine learning engineer from the POSCO ICT and performing AI/ML project for many different industry. 
+  I am a machine learning engineer from the POSCO ICT and performing AI/ML project for many different industry. 
 
