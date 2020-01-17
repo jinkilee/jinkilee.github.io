@@ -17,6 +17,7 @@
 								</a>
 						</div>
 					{% endfor %}
+					<!--
 					{% for edu in site.education %}
 						<div class="timeline">
 								<a href="#" class="timeline-content"  data-toggle="modal" data-target="#{{edu.school | replace: '.', '' | replace: ' ', ''}}-{{edu.level | replace: '.', '' | replace: ' ', '' | replace: '(', '' | replace: ')', ''}}">
@@ -28,6 +29,7 @@
 								</a>
 						</div>
 					{% endfor %}
+					-->
 			</div>
 
 
@@ -49,6 +51,8 @@
 					</div>
 				</div>
 			{% endfor %}
+
+			<!--
 			{% for edu in site.education %}
 				<div class="modal fade" id="{{edu.school | replace: '.', '' | replace: ' ', ''}}-{{edu.level | replace: '.', '' | replace: ' ', '' | replace: '(', '' | replace: ')', ''}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -66,6 +70,7 @@
 					</div>
 				</div>
 			{% endfor %}
+			-->
 
 		</div>
 		<br>
