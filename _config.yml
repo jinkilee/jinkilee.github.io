@@ -4,6 +4,9 @@
 title: Jinki Lee
 name: Jinki Lee
 
+future: true
+timezone: Asia/Seoul
+
 # Build settings
 markdown: kramdown
 
