@@ -103,10 +103,10 @@ intro: |
 
 #An additional info freetext section is optional at the bottom of the page - can be text or HTML
 additionalinfo: |
-   <strong>Python</strong>: python ...
-   <strong>Machine Learning</strong>: ml ...
-   <strong>Computer Vision</strong>: cv ...
-   <strong>Natural Language Processing</strong>: nlp ...
+   <strong>Python</strong>: python ... <br/><br/>
+   <strong>Machine Learning</strong>: ml ... <br/><br/>
+   <strong>Computer Vision</strong>: cv ... <br/><br/>
+   <strong>Natural Language Processing</strong>: nlp ... <br/><br/>
    #<strong>Development Control</strong>: I have a good knowledge of application life-cycle management and have worked with SVN, Git, Maven, Gradle, Sonar, Jenkins, TeamCity, etc. I have experience with an array of testing tools and technologies.<br/><br/>
    #I have also gained experience and knowledge of other technologies from several side projects and research that I have undertaken in my free time, including Android, a variety of social APIs (Twitter etc) and cloud platforms such as CloudFoundry/OpenShift/AppFog/AWS. <br/><br/>
    #As part of Nerdability, I created, and am now primary contributor to, two Spring projects - <a target='_blank' href="https://github.com/robhinds/spring-social-geeklist">Spring-Social-Geeklist</a> and <a target='_blank' href="https://github.com/nerdability/spring-social-khan-academy">Spring-Social-Khan-Academy</a>, which provide core integration with those third-party APIs on top of the Spring Social framework. They are both listed as community projects: <a target='_blank' href="http://projects.spring.io/spring-social/">http://projects.spring.io/spring-social/</a>. <br/><br/>
