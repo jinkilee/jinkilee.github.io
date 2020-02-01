@@ -157,7 +157,7 @@ Okay, I understand the number of parameters can be reduced with cross-layer para
 "We observe that the transitions from layer to layer are much smoother for ALBERT than for BERT. These results show that weight-sharing has an effect on stabilizing network parameters."
 ```
 
-| ![Figure 1](http://jinkilee.github.io/img/doodle/fig1.png) |
+| ![Figure 1](http://jinkilee.github.io/img/albert/albert-bert-embedding_difference.png) |
 |:--:|
 | *Figure 1: Differance between input/output embedding vector(Left:ALBERT, Right:BERT)* |
 
