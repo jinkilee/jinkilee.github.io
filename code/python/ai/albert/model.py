@@ -308,7 +308,19 @@ class AlbertModel(nn.Module):
 		self.encoder = Transformer(conf)
 		self.pooler = nn.Linear(conf.n_hidden, conf.n_hidden)
 		self.pooler_activation = nn.Tanh()
-		
+	
+
+	def io_embedding_distance(self, x):
+		dist = nn.CosineSimilarity(dim=1, eps=1e-6)
+		emb_x = self.embedding(x)
+		old_x = self.encoder.linear_to_hidden(emb_x)
+		for i, layer in enumerate(self.encoder.layers):
+			new_x = layer(old_x)
+			distance = dist(old_x.view(3, -1), new_x.view(3, -1))
+			print(distance)
+			#print('{} layers: {:.4f}'.format(i, distance))
+			old_x = new_x
+	
 	def forward(self, x):
 		x = self.embedding(x)
 		seq_output = self.encoder(x)
@@ -320,3 +332,21 @@ class AlbertModel(nn.Module):
 
 
 
+conf = Config()
+np.random.seed(100)
+n_batch = 3
+
+# make random input
+inp = np.random.randint(0, conf.n_vocab, (n_batch, 10))
+inp = torch.LongTensor(inp)
+#inp = np.random.random((n_batch, 10, conf.n_embed))
+#inp = torch.FloatTensor(inp)
+
+# define AlbertModel
+transformer = AlbertModel(conf)
+
+# output AlbertModel
+#out, pout = transformer(inp)
+#print(out.shape, pout.shape)
+#print(out.sum(), pout.sum())
+transformer.io_embedding_distance(inp)
