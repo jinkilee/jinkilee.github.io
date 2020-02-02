@@ -15,13 +15,11 @@ primarylinks:
    url: https://github.com/jinkilee
  - title: LinkedIn
    url: https://www.linkedin.com/in/jinki-lee-355546b1/
- - title: About
-   url: /about.md
 
 # navigator in header
 navigators:
  - title: About
-   url: /about.md
+   href: /about.md
 
 #Any buzzword skills you want to include
 skills:
