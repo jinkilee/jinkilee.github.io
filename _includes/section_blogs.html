@@ -1,3 +1,4 @@
+<!--
 {% if site.blogfeed %}
 	<div id="blogBubble" class="rounded_panel txt_lightgrey">
 		<div class="top-rounded-panel grey-bg">
@@ -10,4 +11,14 @@
 		</div>
 	</div>
 {% endif %}
+-->
+
+{% for category in site.categories %}
+	<h3>{{ category[0] }}</h3>
+	<ul>
+		{% for post in category[1] %}
+			<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+		{% endfor %}
+	</ul>
+{% endfor %}
 
