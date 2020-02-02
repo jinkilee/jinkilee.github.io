@@ -1,7 +1,7 @@
 ---
 title: "BERT VS ALBERT"
 date: 2020-01-31 08:26:28 -0400
-categories: jekyll update
+categories: AI
 ---
 There are so many blogs about BERT that surprised most of NLP people in 2018. As one of people who was surprised, I applied this technique on my company's project right away and got quite good result at that time. However, something I wanted more was its size. BERT was too big. Too big to load and too big to save as well for one single model. Albert is upgrade version of BERT in terms of its size and performance. In this post, I would like to explain how the size of BERT was reduced and also want to explain why it works. 
 

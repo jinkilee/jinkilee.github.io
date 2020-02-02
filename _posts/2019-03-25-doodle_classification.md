@@ -1,7 +1,7 @@
 ---
 title: "Doodle Recognition @ Kaggle(Unofficial 86th/1316)"
 date: 2019-03-25 08:26:28 -0400
-categories: jekyll update
+categories: AI
 ---
 Today, I want to share my experience of participating in one of Kaggle competition, [**Quick, Draw! Doodle Recognition Challenge**](https://www.kaggle.com/c/quickdraw-doodle-recognition) I will briefly introduce the challenge and start to explain dataset and others. This post may have the following sections.
 
