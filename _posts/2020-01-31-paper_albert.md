@@ -262,9 +262,13 @@ And this is the result.
 You can see the jupyter notebook result from [**here**](http://121.161.230.192:9999/notebooks/bert.ipynb)
 As you can see, BERT can do NSP(of course) but not SOP.
 
--- TBD
--- Can ALBERT do NSP?
--- For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensorflow's ALBERT SOP could not do neighther NSP nor SOP.
+Can ALBERT do NSP?
+For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensorflow's ALBERT SOP could not do neighther NSP nor SOP.
+| Sentences         | NSP | SOP |
+| ----------------- |:---:|:---:|
+| Sentence-pair A   |  O  |  O  |
+| Sentence-pair B   |  O  |  O  |
+| Sentence-pair C   |  O  |  O  |
 
 
 
