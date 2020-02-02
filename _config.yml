@@ -18,6 +18,11 @@ primarylinks:
  - title: About
    url: /about.md
 
+# navigator in header
+navigators:
+ - title: About
+   url: /about.md
+
 #Any buzzword skills you want to include
 skills:
  - Python
