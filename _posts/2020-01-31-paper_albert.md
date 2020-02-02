@@ -265,6 +265,7 @@ As you can see, BERT can do NSP(of course) but not SOP.
 Can ALBERT do NSP?
 For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensorflow's ALBERT could only do SOP but not NSP.
 You can see the jupyter notebook result from [**here**](https://github.com/jinkilee/jinkilee.github.io/blob/master/code/python/ai/albert/albert.ipynb)
+
 | Sentences         | NSP | SOP |
 | ----------------- |:---:|:---:|
 | Sentence-pair A   |  O  |  O  |
