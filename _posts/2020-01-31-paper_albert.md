@@ -268,9 +268,9 @@ You can see the jupyter notebook result from [**here**](https://github.com/jinki
 
 | Sentences         | NSP | SOP |
 | ----------------- |:---:|:---:|
-| Sentence-pair A   |  O  |  O  |
-| Sentence-pair B   |  O  |  O  |
-| Sentence-pair C   |  O  |  O  |
+| Sentence-pair A   |  X  |  O  |
+| Sentence-pair B   |  X  |  O  |
+| Sentence-pair C   |  X  |  O  |
 
 
 My BERT application experience
