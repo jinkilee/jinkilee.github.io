@@ -3,9 +3,7 @@ title: About
 permalink: /about/
 ---
 
-
-
-### About
+### \ \ \ \ 
 This is my personal blog.
 
 ### Research
