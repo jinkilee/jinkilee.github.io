@@ -259,11 +259,12 @@ And this is the result.
 | Sentence-pair B   |  O  |  X  |
 | Sentence-pair C   |  O  |  X  |
 
-You can see the jupyter notebook result from [**here**](http://121.161.230.192:9999/notebooks/bert.ipynb)
+You can see the jupyter notebook result from [**here**](https://github.com/jinkilee/jinkilee.github.io/blob/master/code/python/ai/albert/bert.ipynb)
 As you can see, BERT can do NSP(of course) but not SOP.
 
 Can ALBERT do NSP?
-For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensorflow's ALBERT SOP could not do neighther NSP nor SOP.
+For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensorflow's ALBERT could only do SOP but not NSP.
+You can see the jupyter notebook result from [**here**](https://github.com/jinkilee/jinkilee.github.io/blob/master/code/python/ai/albert/albert.ipynb)
 | Sentences         | NSP | SOP |
 | ----------------- |:---:|:---:|
 | Sentence-pair A   |  O  |  O  |
@@ -271,11 +272,10 @@ For what I tested so far, SOP was not implemented in Pytorch's ALBERT and Tensor
 | Sentence-pair C   |  O  |  O  |
 
 
-
-
-
-
-
-
+My BERT application experience
+---------------
+| ![Figure 2](http://jinkilee.github.io/img/albert/attack.png) |
+|:--:|
+| *Figure 2: ShellShock attack |
 
 
