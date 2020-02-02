@@ -10,6 +10,9 @@
 				{% for link in site.primarylinks %}
 					<li><a target='_blank' href="{{link.url}}">{{link.title}}</a></li>
 				{% endfor %}
+				{% for nav in site.navigators %}
+					<li><a target='_blank' href="{{nav.href}}">{{nav.title}}</a></li>
+				{% endfor %}
 			</ul>
 		</div>
 	</div>
