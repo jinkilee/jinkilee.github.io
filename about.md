@@ -2,6 +2,8 @@
 title: About
 permalink: /about/
 ---
+<br>
+<br>
 
 ###     
 This is my personal blog.
