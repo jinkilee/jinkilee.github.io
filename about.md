@@ -1,20 +1,11 @@
--------
-layout: page
-title: "PAGE TITLE"
+---
+title: About
 permalink: /about/
--------
+---
 
-#### 프로젝트 설명
----------------
-딥러닝을 이용해서 보안 장비의 텍스트 이벤트 로그로부터 위협 요소를 식별하는 모델을 개발하고 서비스화했습니다.
-보안 장비의 이벤트 로그에는 공격에 사용될 키워드가 있습니다.(e.g. SQL, CMD, XSS 구문 등등) 이러한 키워드를 내부적으로 위협 요소라고 명칭했고, 유입되는 텍스트 이벤트에서 위협 요소를 식별해내는 것을 딥러닝을 이용해서 해결했습니다.
-정규 표현식을 이용해서도 위협 요소를 식별해낼 수 있으나, 그렇게 할 경우에는 오탐이 굉장히 많이 발생합니다. 따라서 오탐율을 줄이고자 머신러닝 기법을 도입했고, 여러 가지 가설과 연구를 거쳐서 딥러닝으로 접근하는 것이 가장 효율적이라고 판단했습니다.
-위협 요소 식별 엔진을 개발한 과정은 다음과 같습니다.
-우선, 주어진 텍스트 로그를 전처리합니다. 전처리할 떄는 문자열 치환이나 패딩, 토큰화 등등의 과정을 거쳤습니다.
-토큰화된 토큰들을 인덱스로 치환하여 CNN, RNN을 기반으로한 딥러닝 알고리즘을 개발해서 사용했습니다.
-개발한 딥러닝 모델의 정확도는 각 식별요소마다 98% 이상의 신뢰도를 보였고, 실제 서비스에도 적용하게 됐습니다.
+### About us
+We are a group of data scientists with interest in brains and, more general, biomedical research. Our research is more diverse than most labs, and also changes much more quickly! Right at the moment, much of the research in the lab is about deep learning and its applications. We also do a good bit of neural data analysis. Right now we are also very much interested in causality and its links with machine learning.
 
-#### 프로젝트에서 기여한 부분
----------------
-abc
-ddd
+### Research
+Making sense of data is possibly the biggest problem in Neuroscience and beyond. We build algorithms to analyze data. We also use theory as well as computational and [neural modeling](https://en.wikipedia.org/wiki/Computational_neuroscience) to understand how information is processed in the nervous system, explaining data obtained in collaboration with [electrophysiologists](https://en.wikipedia.org/wiki/Electrophysiology) and in [psychophysical](https://en.wikipedia.org/wiki/Psychophysics) experiments. Lastly, we constrain and develop new technologies aimed at obtaining data about brains.
+
