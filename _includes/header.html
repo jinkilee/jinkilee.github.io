@@ -7,12 +7,12 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				{% for link in site.primarylinks %}
-					<li><a target='_blank' href="{{link.url}}">{{link.title}}</a></li>
-				{% endfor %}
 				{% for nav in site.navigators %}
 					<li><a target='_blank' href="{{nav.href}}">{{nav.title}}</a></li>
 					<!-- <li><a class='name' href="{{ nav.href }}">{{ nav.name }}</a></li> -->
+				{% endfor %}
+				{% for link in site.primarylinks %}
+					<li><a target='_blank' href="{{link.url}}">{{link.title}}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
