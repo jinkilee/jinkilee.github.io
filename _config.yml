@@ -8,8 +8,6 @@ markdown: kramdown
 #User specific content
 #Links that will appear in the navbar
 primarylinks:
- - title: Blog
-   url: http://operatingsystems.tistory.com
  - title: GitHub
    url: https://github.com/jinkilee
  - title: LinkedIn
@@ -19,6 +17,8 @@ primarylinks:
 navigators:
  - title: About
    href: /about
+ - title: Blog
+   href: /ablog
 
 #Any buzzword skills you want to include
 skills:
