@@ -19,7 +19,7 @@ This is a list of documents I have worked on.
 <br>
 ### Paper
 ----------
-- [**Universal Language Fine-Tuning**](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2019-06-22-ulm_fit.md)
+- [**Universal Language Fine-Tuning**](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2019-06-22-ulmfit.md)
 
 <br>
 ### Personal project
