@@ -253,6 +253,7 @@ And this is the result.
 - Is Obama the president of the US?
 - No but he was
 ```
+
 | Sentences         | NSP | SOP |
 | ----------------- |:---:|:---:|
 | Sentence-pair A   |  O  |  X  |
@@ -271,12 +272,5 @@ You can see the jupyter notebook result from [**here**](https://github.com/jinki
 | Sentence-pair A   |  X  |  O  |
 | Sentence-pair B   |  X  |  O  |
 | Sentence-pair C   |  X  |  O  |
-
-
-My BERT application experience
----------------
-| ![Figure 2](http://jinkilee.github.io/img/albert/attack.png) |
-|:--:|
-| *Figure 2: ShellShock attack |
 
 
