@@ -12,25 +12,25 @@ To talk about the main of attention mechanism, it is good to take a short look o
 ```python
 # https://github.com/jinkilee/multi-class-text-classification-cnn-rnn/blob/master/text_cnn_rnn.py
 class TextCNNRNN(object):
-	def __init__(self, embedding_mat, non_static, hidden_unit, sequence_length, max_pool_size,
-		num_classes, embedding_size, filter_sizes, num_filters, l2_reg_lambda=0.0):
+    def __init__(self, embedding_mat, non_static, hidden_unit, sequence_length, max_pool_size,
+        num_classes, embedding_size, filter_sizes, num_filters, l2_reg_lambda=0.0):
 
-		self.input_x = tf.placeholder(tf.int32, [None, sequence_length], name='input_x')
-		self.input_y = tf.placeholder(tf.float32, [None, num_classes], name='input_y')
+        self.input_x = tf.placeholder(tf.int32, [None, sequence_length], name='input_x')
+        self.input_y = tf.placeholder(tf.float32, [None, num_classes], name='input_y')
 
-		# ...
-		self._initial_state = lstm_cell.zero_state(self.batch_size, tf.float32)
-		outputs, state = tf.contrib.rnn.static_rnn(
-			lstm_cell, 
-			inputs, 
-			initial_state=self._initial_state, 
-			sequence_length=self.real_len)
+        # ...
+        self._initial_state = lstm_cell.zero_state(self.batch_size, tf.float32)
+        outputs, state = tf.contrib.rnn.static_rnn(
+            lstm_cell, 
+            inputs, 
+            initial_state=self._initial_state, 
+            sequence_length=self.real_len)
 
-		# Collect the appropriate last words into variable output (dimension = batch x embedding_size)
-		output = outputs[0]
+        # Collect the appropriate last words into variable output (dimension = batch x embedding_size)
+        output = outputs[0]
 
-		# Build a classifier with `output`
-		# ...
+        # Build a classifier with `output`
+        # ...
 ```
 
 This is a normal code to run a classifier with a LSTM. Everything is okay, but why have we used the last output only? LSTM is designed to memorize long term sequence. so we just believe it is okay to use the last one only. That is, the last one has compact representation of an entire sequence.
@@ -45,8 +45,6 @@ With an example
 ---------------
 Let's say we want to build a translator(english to korean) To build a translation model, a seq2seq model which contains encoder and decoder was widely used.
 
-// 2.jpg
-// encode source sentence and decode it to target sentence
 | ![Figure 2](http://jinkilee.github.io/img/attention/2.png) |
 |:--:|
 | *Figure 2: Translation with seq2seq model* |
