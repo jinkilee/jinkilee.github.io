@@ -26,8 +26,8 @@ sudo dpkg -i nvidia-machine-learning-repo-${UBUNTU}_1.0.0-1_amd64.deb
 sudo apt update
 sudo apt install -y libcudnn7 libcudnn7-dev libnccl2 libc-ares-dev
 
-sudo apt autoremove
-sudo apt upgrade
+sudo apt autoremove -y
+sudo apt upgrade -y
 
 # Link libraries to standard locations
 sudo mkdir -p /usr/local/cuda-${CUDA_VERSION}/nccl/lib
