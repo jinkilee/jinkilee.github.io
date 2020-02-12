@@ -42,9 +42,9 @@ fi
 
 # chec if CuDNN file exists
 if ( wget -o/dev/null "${CuDNN_DEB_LINK}" ); then
-	echo "[OK] : ${CUDA_PUB_LINK}"
+	echo "[OK] : ${CuDNN_DEB_LINK}"
 else
-	echo "[FAIL] : ${CUDA_PUB_LINK}"
+	echo "[FAIL] : ${CuDNN_DEB_LINK}"
 	exit
 fi
 
@@ -65,7 +65,7 @@ sudo apt update
 sudo apt install -y ${CUDA_APT}
 
 # Install CuDNN 7 and NCCL 2
-wget ${CUDA_PUB_LINK}
+wget ${CuDNN_DEB_FILE}
 sudo dpkg -i ${CuDNN_DEB_FILE}
 
 sudo apt update
