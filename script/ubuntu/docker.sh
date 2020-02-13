@@ -19,3 +19,6 @@ sudo apt-get install docker-ce -y
 sudo service docker status
 # sudo docker run hello-world
 
+
+sudo usermod -a -G docker $USER
+sudo service docker restart
