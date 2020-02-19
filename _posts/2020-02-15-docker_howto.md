@@ -160,6 +160,141 @@ wordpressdb_hostvolume
 ubuntu:14.04
 ```
 
+도커 네트워크
+
+```
+>>> ifconfig
+veth697c5f1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::c43b:79ff:fef1:21a3  prefixlen 64  scopeid 0x20<link>
+        ether c6:3b:79:f1:21:a3  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 582  bytes 51805 (51.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth7cce24a: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::a4ed:7cff:fe0e:f4a  prefixlen 64  scopeid 0x20<link>
+        ether a6:ed:7c:0e:0f:4a  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 584  bytes 51998 (51.9 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+
+
+
+```
+jkfirst@myserver:~$ sudo docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "88b15b4af1bb99bfa683b1be3d18fb905c5e7f932f3c264f372848772c4b689f",
+        "Created": "2020-02-12T13:22:05.921954896+09:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "011013d7b89e49a34d92c11051e33e623ede3684ba764389d15115e7bc4e33fd": {
+                "Name": "mywebserver",
+                "EndpointID": "0d993f28ff0dc965cbecea84780aeaa4e6c11dc5b46637a64509c86194456b1c",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "0384fea3f29dc6d5b0123b86813fc279821065665253fce026a974d67c214138": {
+                "Name": "volume_overide",
+                "EndpointID": "750dc63755f04ac8c09f4b1d6ec289670172931264a02557e47058375eeb0f66",
+                "MacAddress": "02:42:ac:11:00:07",
+                "IPv4Address": "172.17.0.7/16",
+                "IPv6Address": ""
+            },
+            "12ff0bed45fed06e1acca34105cfc61da9218906a01991a7dea6e2b5db0ca643": {
+                "Name": "volumes_from_container",
+                "EndpointID": "a19351b91464aaf94cf58264dab08c21b5cb76de071b82a84e169b4230b8160c",
+                "MacAddress": "02:42:ac:11:00:08",
+                "IPv4Address": "172.17.0.8/16",
+                "IPv6Address": ""
+            },
+            "351c322623fefa31854acda6134c07de38506d47aa00c6fdef91a87dab8c743a": {
+                "Name": "file_volumn",
+                "EndpointID": "c4607e735cbd0244c74374e12062b069b060d712f4cce10f36f386f00e2aefa4",
+                "MacAddress": "02:42:ac:11:00:05",
+                "IPv4Address": "172.17.0.5/16",
+                "IPv6Address": ""
+            },
+            "42859f4a2633f560a681d7361151a344d311ed7461fe57a59234f54ddbe0fdf7": {
+                "Name": "myvolume_1",
+                "EndpointID": "c5ffcf362832c4f111febabced0f62a1d7229b080cb184dbc6d2b05807670b85",
+                "MacAddress": "02:42:ac:11:00:09",
+                "IPv4Address": "172.17.0.9/16",
+                "IPv6Address": ""
+            },
+            "adcf207161efae125f7792d0392c7b737176cd043d01c4c7e1e6f132e255c5c2": {
+                "Name": "wordpress",
+                "EndpointID": "4c33e6f3bec136ae14d5d562b6fd902f17072cb07266bdd8d09fe39e97a3a8ac",
+                "MacAddress": "02:42:ac:11:00:04",
+                "IPv4Address": "172.17.0.4/16",
+                "IPv6Address": ""
+            },
+            "bde0ac6ebf5cef584a6f83463d5c21742d32610ed2d84e72c15e183113c26ce6": {
+                "Name": "wordpressdb",
+                "EndpointID": "80dd268c29cb72e54340c00408b9d5c7ccfeb2b647cb98bcaaf81de8515b29b8",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "cbd22dc580603da8bcc6fcf3b66cfcb388aed62725dcba362e43668bcdfe7bae": {
+                "Name": "volumn_dummy",
+                "EndpointID": "e604d88df793467fc67875536dfd61966fa97727189de048b58b76f7efef3fcb",
+                "MacAddress": "02:42:ac:11:00:06",
+                "IPv4Address": "172.17.0.6/16",
+                "IPv6Address": ""
+            },
+            "fc6511c2b2053f1f1abc4539b6dc2fe4c059d7d397208f9d08582f791120146b": {
+                "Name": "myvolume_2",
+                "EndpointID": "e2c5721cba523dc70905b0cfa55334dc39dd64c83025d1c1927ba9f399873d69",
+                "MacAddress": "02:42:ac:11:00:0a",
+                "IPv4Address": "172.17.0.10/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+```
+
+사용 가능한 네트워크 타입
+```
+jkfirst@myserver:~$ sudo docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+88b15b4af1bb        bridge              bridge              local
+bbacb2609f20        host                host                local
+5d2b349ed772        none                null                local
+```
 
 도커 이미지 생성
 ------------
