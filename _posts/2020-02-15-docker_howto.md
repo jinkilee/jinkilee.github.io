@@ -161,4 +161,83 @@ ubuntu:14.04
 ```
 
 
+도커 이미지 생성
+------------
+아래와 같이 이미지를 생성할 수 있다.
+```
+jkfirst@myserver:~$ sudo docker run -i -t --name commit_test ubuntu:14.04
+
+`Ctrl + PQ`
+
+# 도커 이미지 생성
+jkfirst@myserver:~$ sudo docker commit \
+-a "alicek106" \
+-m "my first commit" \
+commit_test \
+commit_test:first
+
+sha256:6e91714374ebfbe75a0c7025fa48741b7b1868d1cf28850e07f5b7de8854d2e8
+```
+
+여기에 두번째 commit을 추가해보자
+```
+jkfirst@myserver:~$ sudo docker commit -a "alicek106" -m "my second commit" commit_test2 commit_test:second
+ 
+jkfirst@myserver:~$ sudo docker commit \
+-a "alicek106" \
+-m "my second commit" \
+commit_test2 \
+commit_test:second
+```
+
+그리고 `docker inspect`를 이용해서 아래와 같이 `Layers`부분을 확인해보자
+```
+jkfirst@myserver:~$ sudo docker inspect ubuntu:14.04
+...
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:f2fa9f4cf8fd0a521d40e34492b522cee3f35004047e617c75fadeb8bfd1e6b7",
+                "sha256:48dc77435ad5c63ea60d91e6ad4828c70e7e61755f99982b0505abb8aaa00872",
+                "sha256:3da511183950aa462f667f43fcda0bb5484c5c73eaa94fcd0a94bbd4db396e1c"
+            ]
+        },
+...
+```
+여기에서 3개의 layer가 있다. 첫번째 `ubuntu:14.04`이미지에 `commit:first`가 쌓이고, 또 그 위에 `commit:second`가 쌓이는 구조이기 때문에 전체 이미지 사이즈는 아래와 같다.
+```
+전체 이미지 크기 = `ubuntu:14.04`이미지 크기 + `commit:first`에서 추가된 부분 + `commit:second`에서 추가된 부분
+```
+
+`commit_test:second`가 `commit_Test:first`에서 추가된 것이라는 것을 아래의 명령을 통해 확인할 수 있다.
+```
+jkfirst@myserver:~$ sudo docker history commit_test:second
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+bbfdf21d7c15        10 minutes ago      /bin/bash                                       13B                 my second commit
+6e91714374eb        13 minutes ago      /bin/bash                                       11B                 my first commit
+6e4f1fe62ff1        2 months ago        /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
+<missing>           2 months ago        /bin/sh -c mkdir -p /run/systemd && echo 'do…   7B
+<missing>           2 months ago        /bin/sh -c set -xe   && echo '#!/bin/sh' > /…   195kB
+<missing>           2 months ago        /bin/sh -c [ -z "$(apt-get indextargets)" ]     0B
+<missing>           2 months ago        /bin/sh -c #(nop) ADD file:276b5d943a4d284f8…   196MB
+```
+
+생성된 도커 이미지를 삭제할 때 `Layers` 구조를 고려해야 한다. 즉 아래와 같이 해야 한다 그렇지 않으면 에러가 난다고 함.
+```
+jkfirst@myserver:~$ sudo docker stop commit_test2 & sudo docker rm commit_test2
+jkfirst@myserver:~$ sudo docker rmi commit_test:first
+```
+
+
+도커 이미지 추출 및 로드
+```
+# 도커 이미지 추출
+jkfirst@myserver:~$ sudo docker save -o ubuntu_14_04.tar ubuntu:14.04
+jkfirst@myserver:~$ ls -al *.tar
+-rw------- 1 root root 206370304  2월 19 13:17 ubuntu_14_04.tar
+
+# 추출된 이미지를 통해 로드
+jkfirst@myserver:~$ sudo docker load -i ubuntu_14_04.tar
+Loaded image: ubuntu:14.04
+```
 
