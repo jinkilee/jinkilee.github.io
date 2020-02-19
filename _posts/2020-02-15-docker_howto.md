@@ -241,3 +241,274 @@ jkfirst@myserver:~$ sudo docker load -i ubuntu_14_04.tar
 Loaded image: ubuntu:14.04
 ```
 
+도커 저장소에 이미지 올리기(push)
+---------------
+```
+jkfirst@myserver:~$sudo docker run -i -t --name commit_container1 ubuntu:14.04
+jkfirst@myserver:~$sudo docker commit commit_container1 my-image-name:0.0
+sha256:af8eb323716a3b4ff49e538a33d02673d24e1315a6c9b6c6f3d5bcacbcf12d86
+jkfirst@myserver:~$sudo docker push jinkilee/my-image-name:0.0
+The push refers to repository [docker.io/jinkilee/my-image-name]
+fc0751f2d9b7: Pushed
+3da511183950: Mounted from library/ubuntu
+48dc77435ad5: Mounted from library/ubuntu
+f2fa9f4cf8fd: Mounted from library/ubuntu
+0.0: digest: sha256:5cd3d79e93c05959bee2d61e76a0f4cc205924f0cdefb324828561c561c61ee1 size: 1152
+```
+
+생성된 이미지는 아래의 명령어를 통해 `pull`할 수 있다.
+```
+jkfirst@myserver:~$sudo docker pull jinkilee/my-image-name:0.0
+```
+
+도커 사설 레지스트리
+private용으로 저장소를 만들고자할 경우 사용
+```
+jkfirst@myserver:~$sudo docker run -d --name myregistry \
+-p 5000:5000 \
+--restart=always \
+registry:2.6
+```
+
+아래의 과정들은 사설 저장소를 만들어서 https 설정을 한 후 최종적으로 하나의 이미지를 `push`하는 것까지의 과정이다.
+```
+jkfirst@myserver:~$ mkdir certs
+jkfirst@myserver:~$ openssl genrsa -out certs/ca.key 2048
+Generating RSA private key, 2048 bit long modulus (2 primes)
+..............................................+++++
+................+++++
+e is 65537 (0x010001)
+jkfirst@myserver:~$ openssl req -x509 -new -key ./certs/ca.key -days 10000 -out ./certs/ca.crt
+Can't load /home/jkfirst/.rnd into RNG
+140015833285056:error:2406F079:random number generator:RAND_load_file:Cannot open file:../crypto/rand/randfile.c:88:Filename=/home/jkfirst/.rnd
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:
+State or Province Name (full name) [Some-State]:
+Locality Name (eg, city) []:
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:
+Email Address []:
+jkfirst@myserver:~$ openssl genrsa -out ./certs/domain.key 2048
+Generating RSA private key, 2048 bit long modulus (2 primes)
+.......+++++
+......................+++++
+e is 65537 (0x010001)
+jkfirst@myserver:~$sudo apt install apache2-utils
+jkfirst@myserver:~$ htpasswd -c htpasswd jinkilee
+New password:
+Re-type new password:
+Adding password for user jinkilee
+jkfirst@myserver:~$
+jkfirst@myserver:~$ mv htpasswd certs/
+
+jkfirst@myserver:~$ openssl req -new -key ./certs/domain.key -subj /CN=172.30.1.100 -out ./certs/domain.csr
+Can't load /home/jkfirst/.rnd into RNG
+139690251039168:error:2406F079:random number generator:RAND_load_file:Cannot open file:../crypto/rand/randfile.c:88:Filename=/home/jkfirst/.rnd
+
+
+jkfirst@myserver:~$ echo subjectAltName = IP:172.30.1.100 > extfile.cnf
+
+
+jkfirst@myserver:~$ openssl x509 -req -in ./certs/domain.csr -CA ./certs/ca.crt -CAkey ./certs/ca.key -CAcreateserial -out ./certs/domain.crt -days 10000 -extfile extfile.cnf
+Signature ok
+subject=CN = 172.30.1.100
+Getting CA Private Key
+
+jkfirst@myserver:~$ htpasswd -c htpasswd jinkilee
+New password:
+Re-type new password:
+Adding password for user jinkilee
+jkfirst@myserver:~$ mv htpasswd certs/
+
+sudo apt install apache2-utils # install command for htpasswd
+
+jkfirst@myserver:~$ sudo docker stop myregistry
+myregistry
+jkfirst@myserver:~$ sudo docker rm myregistry
+myregistry
+jkfirst@myserver:~$ sudo docker run -d --name myregistry --restart=always registry:2.6
+8284390bfe5948279db8bcc9005702b22f34d0f407fcbadaece7cb398bfd610a
+
+jkfirst@myserver:~$sudo docker run -d --name nginx_frontend \
+-p 443:443 \
+--link myregistry:registry \
+-v $(pwd)/certs/:/etc/nginx/conf.d \
+nginx:1.9
+
+
+jkfirst@myserver:~$ sudo docker login https://172.30.1.100
+Username: jinkilee
+Password:
+Error response from daemon: Get https://172.30.1.100/v2/: dial tcp 172.30.1.100:443: connect: connection refused
+
+
+jkfirst@myserver:~$ sudo cp certs/ca.crt /usr/local/share/ca-certificates/
+jkfirst@myserver:~$ sudo update-ca-certificates
+Updating certificates in /etc/ssl/certs...
+1 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+Adding debian:ca.pem
+done.
+done.
+
+jkfirst@myserver:~$service docker restart
+jkfirst@myserver:~$sudo docker start nginx_frontend
+nginx_frontend
+jkfirst@myserver:~$ sudo docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                          NAMES
+7b19d3686ce2        nginx:1.9           "nginx -g 'daemon of…"   2 minutes ago       Up 19 seconds       80/tcp, 0.0.0.0:443->443/tcp   nginx_frontend
+8284390bfe59        registry:2.6        "/entrypoint.sh /etc…"   5 minutes ago       Up 37 seconds       5000/tcp                       myregistry
+
+jkfirst@myserver:~$ sudo docker login 172.30.1.100
+Username: jinkilee
+Password:
+WARNING! Your password will be stored unencrypted in /home/jkfirst/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+jkfirst@myserver:~$ sudo docker tag my-image-name:0.0 172.30.1.100/my-image-name:0.0
+jkfirst@myserver:~$ sudo docker push 172.30.1.100/my-image-name:0.0
+The push refers to repository [172.30.1.100/my-image-name]
+fc0751f2d9b7: Pushed
+3da511183950: Pushed
+48dc77435ad5: Pushed
+f2fa9f4cf8fd: Pushed
+0.0: digest: sha256:5cd3d79e93c05959bee2d61e76a0f4cc205924f0cdefb324828561c561c61ee1 size: 1152
+```
+
+이미지가 정상적으로 `push`됐는지 아래와 같이 확인할 수 있따.
+```
+jkfirst@myserver:~$ curl -u (계정이름):(비밀번호) https://172.30.1.100/v2/_catalog
+{"repositories":["my-image-name"]}
+
+# 태그 반환까지 하려면 아래와 같이 하라.
+jkfirst@myserver:~$ curl -u (계정이름):(비밀번호) https://172.30.1.100/v2/my-image-name/tags/list
+{"name":"my-image-name","tags":["0.0"]}
+
+# 더 자세한 이미지 정보는 아래와 같이 얻을 수 있음
+jkfirst@myserver:~$ curl -i --header "Accept: application/vnd.docker.distribution.manifest.v2+json" -u (계정이름):(비밀번호) https://172.30.1.100/v2/my-image-name/manifests/0.0
+HTTP/1.1 200 OK
+Server: nginx/1.9.15
+Date: Wed, 19 Feb 2020 10:40:52 GMT
+Content-Type: application/vnd.docker.distribution.manifest.v2+json
+Content-Length: 1152
+Connection: keep-alive
+Docker-Content-Digest: sha256:5cd3d79e93c05959bee2d61e76a0f4cc205924f0cdefb324828561c561c61ee1
+Docker-Distribution-Api-Version: registry/2.0
+Etag: "sha256:5cd3d79e93c05959bee2d61e76a0f4cc205924f0cdefb324828561c561c61ee1"
+X-Content-Type-Options: nosniff
+Docker-Distribution-Api-Version: registry/2.0
+
+{
+   "schemaVersion": 2,
+   "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+   "config": {
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "size": 3304,
+      "digest": "sha256:af8eb323716a3b4ff49e538a33d02673d24e1315a6c9b6c6f3d5bcacbcf12d86"
+   },
+   "layers": [
+      {
+         "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+         "size": 70691577,
+         "digest": "sha256:2e6e20c8e2e69fa5c3fcc310f419975cef5fbeb6f7f2fe1374071141281b6a06"
+      },
+      {
+         "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+         "size": 72659,
+         "digest": "sha256:30bb187ac3fc6c428f38d46409e7765a18dc6b59bc99914f0ba6936463307ec8"
+      },
+      {
+         "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+         "size": 163,
+         "digest": "sha256:b7a5bcc4a58aeed61f7dbe0a859aa4d37db24efd0c3ca58fb83605b5ad9044b5"
+      },
+      {
+         "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+         "size": 121,
+         "digest": "sha256:f5dbbb17ca8322a5b9aeed548b0be51233f75237e1851f480710bf18e190d1c8"
+      }
+   ]
+}
+```
+
+도커 이미지는 도커에 대한 정보를 저장하는 manifest 파일과 실제 이미지에 레이어 파일을 저장하는 바이너리 파일로 나뉨. 그리고 manifest파일과 각 레이어에 해당하는 파일은 고유한 식별을 위한 ID로 Digest값을 가짐. ex)놈256:4as2rr...
+
+저장소에 있는 도커 이미지를 삭제하려고 할 경우, curl을 통해서 manifest를 먼저 삭제한 후 각 레이어를 삭제하면 된다.
+DELETE /v2/이미지이름/manifests/매니페스트Digest
+DELETE /v2/이미지이름/blobs/레이어Digest
+
+
+Dockerfile 작성
+----------------
+예제를 위한 시나리오는 다음과 같다. test.html을 생성해서 그것을 /var/www/html에 복사한 후 아파치 웹서버를 실행하는 것이다.
+```
+도커파일 작성
+```
+
+작성한 도커파일을 아래와 같이 실행하면 도커 이미지를 생성할 수 있다.
+```
+# 이미지 생성하기
+jkfirst@myserver:~/dockerfile$ sudo docker build -t mybuild:0.0 ./
+Sending build context to Docker daemon  3.072kB
+Step 1/10 : FROM ubuntu:14.04
+ ---> 6e4f1fe62ff1
+Step 2/10 : MAINTAINER jinkilee
+ ---> Using cache
+ ---> a8c1407b91d0
+Step 3/10 : LABEL "purpose"="practice"
+ ---> Using cache
+ ---> 99bab7b484aa
+Step 4/10 : RUN apt-get update
+ ---> Using cache
+ ---> 9d5fbfea21a8
+Step 5/10 : RUN apt-get install apache2 -y
+ ---> Using cache
+ ---> d038ecc38e70
+Step 6/10 : ADD test.html /var/www/html
+ ---> Using cache
+ ---> b23cb668412f
+Step 7/10 : WORKDIR /var/www/html
+ ---> Using cache
+ ---> a25189a4928f
+Step 8/10 : RUN ["/bin/bash", "-c", "echo hello >> test2.html"]
+ ---> Running in ea9ebdd9f678
+Removing intermediate container ea9ebdd9f678
+ ---> 7e2ce4d7080f
+Step 9/10 : EXPOSE 80
+ ---> Running in 86d4e08719e3
+Removing intermediate container 86d4e08719e3
+ ---> 0f4b44a4e5e8
+Step 10/10 : CMD apachectl -DFOREGROUND
+ ---> Running in 7049037e5b27
+Removing intermediate container 7049037e5b27
+ ---> 8f9ed1e69aa3
+Successfully built 8f9ed1e69aa3
+Successfully tagged mybuild:0.0
+
+# 생성된 이미지 확인하기
+jkfirst@myserver:~/dockerfile$ sudo docker images
+REPOSITORY                        TAG                 IMAGE ID            CREATED              SIZE
+mybuild                           0.0                 8f9ed1e69aa3        About a minute ago   221MB
+
+# 생성된 이미지 실행하기
+jkfirst@myserver:~/dockerfile$ sudo docker run -d -P --name myserver mybuild:0.0
+
+# 80 포트와 연결된 호스트 포트는 아래와 같이 확인할 수 있다.
+jkfirst@myserver:~/dockerfile$ sudo docker port myserver
+80/tcp -> 0.0.0.0:32768
+
+jkfirst@myserver:~/dockerfile$ netstat -na | grep 32768
+tcp6       0      0 :::32768                :::*                    LISTEN
+```
+
