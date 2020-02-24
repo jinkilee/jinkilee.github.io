@@ -647,3 +647,96 @@ jkfirst@myserver:~/dockerfile$ netstat -na | grep 32768
 tcp6       0      0 :::32768                :::*                    LISTEN
 ```
 
+# Multi-stage 빌드
+----------------
+아래와 같이 main.go를 실행시키는 간단한 도커파일을 만들어보자.
+>>> vi main.go
+```
+package main
+import "fmt"
+func main() {
+    fmt.Println("hello world")
+}
+```
+
+
+>>> vi Dockerfile
+```
+From golang
+ADD main.go /root
+WORKDIR /root
+RUN go build -o /root/mainApp /root/main.go
+CMD ["./mainAPP"]
+```
+>>> sudo docker build . -t go_helloworld
+
+빌드가 끝난 후, 빌드된 이미지의 크기를 살펴보자.
+```
+>>> sudo docker images go_helloworld:latest
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+go_helloworld       latest              0f58c5075643        27 seconds ago      805MB
+```
+
+main.go를 실행시키는 매우 간단한 이미지임에도 불구하고 여러가지 go를 컴파일/실행시키기 위한 환경을 구축하느라 사이즈가 805MB까지 늘었다. 이런 경우 multi-stage 빌드를 할 수 있다. 아래와 같이 수행해보자.
+
+```
+>>> vi DockerfileLite
+FROM golang
+ADD main.go /root
+WORKDIR /root
+RUN go build -o /root/mainApp /root/main.go
+
+FROM alpine:latest
+WORKDIR /root
+COPY --from=0 /root/mainApp .
+CMD ["./mainApp"]
+```
+
+Dockerfile명이 DockerfileLite이므로 아래와 같이 파일명을 지정해서 이미지를 빌드해보자.
+```
+sudo docker build -f DockerfileLite . -t go_helloworld:multi-stage
+```
+
+그리고 `go_helloworld` 이미지의 크기를 비교해보면 아래와 같다.
+```
+jkfirst@myserver:~/workspace/git/docker_practice$ sudo docker images go_helloworld
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+go_helloworld       multi-stage         12d2f11c40c5        26 seconds ago      7.6MB
+go_helloworld       latest              0f58c5075643        9 minutes ago       805MB
+```
+
+여러가지 Dockerfile 명령어
+------------
+# ENV
+컨테이너 내에 환경변수를 세팅한다.
+```
+>>> vi Dockerfile
+...
+# test라는 변수를 /home으로 세팅
+ENV test /home
+...
+```
+
+
+# ARG
+빌드할 때 파라미터를 ARG로부터 받을 수 있다.
+
+
+# USERADD
+사용자 계정 추가!! 도커는 기본적으로 root로 실행을 하게 되는데, 이는 보안 측면에서 바람직하지 않다. `USER`를 통해서 `USER` 밑에 있는 모든 명령어는 해당 사용자의 권한으로 실행하게 할 수 있다.
+```
+From golang
+RUN groupadd -r author && useradd -r -g author alicek106
+USER alicek106
+RUN echo "hello"
+
+>>> sudo docker run -i -t go_helloworld /bin/bash
+alicek106@dda960b79d8d:/go$
+```
+
+# ADD, COPY
+기능은 둘 다 같음. 로컬 디렉토리의 내용을 도커 컨테이너 내의 경로로 복사하는 것. 하지만 `ADD`는 외부 URL이나 tar 파일로부터도 복사할 수 있음
+```
+ADD https://localhost.com/abc.html /home
+ADD test.tar /home    # test.tar 압축 해제 후 복사
+```
