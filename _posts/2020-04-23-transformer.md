@@ -189,7 +189,7 @@ epochs = 45
 - 학습시간: 약 50시간
 
 Multi-GPU를 이용해서 병렬로 학습할 경우 아래와 같이 학습하면 된다.
-![Figure 4](http://jinkilee.github.io/img/transformer/tmulti-gpu-trainin.png)
+![Figure 4](http://jinkilee.github.io/img/transformer/multi-gpu-training.png)
 |:--:|
 | *Figure 4: Multi-GPU Training* |
 
