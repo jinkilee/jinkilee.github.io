@@ -46,7 +46,7 @@ heights	return
 [7] 번째 탑이 쏜 신호는 6번째 탑이 수신합니다.
 
 코드
-```
+```cpp
 #include <string>
 #include <vector>
 #include <iostream>

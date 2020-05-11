@@ -32,7 +32,7 @@ phone_book	return
 첫 번째 전화번호, “12”가 두 번째 전화번호 “123”의 접두사입니다. 따라서 답은 false입니다.
 
 코드
-```
+```cpp
 #include <string>
 #include <vector>
 #include <iostream>
