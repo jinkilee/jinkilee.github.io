@@ -28,24 +28,12 @@ number	result
 
 입출력 예 설명
 -------------
-```
-입출력 예 #1
-문제의 예시와 같습니다.
-
-입출력 예 #2
-three, two 이므로 32를 return 합니다.
-
-입출력 예 #3
-four, three, nine 이므로 439를 return 합니다.
-
-입출력 예 #4
-eight 은 8을 return 합니다.
-
-입출력 예 #5
-five, two, one, two 이므로 5212를 return 합니다.
-
-입출력 예 #6
-zero, six 이므로 06을 return 합니다.
+- 입출력 예 #1: 문제의 예시와 같습니다.
+- 입출력 예 #2: three, two 이므로 32를 return 합니다.
+- 입출력 예 #3: four, three, nine 이므로 439를 return 합니다.
+- 입출력 예 #4: eight 은 8을 return 합니다.
+- 입출력 예 #5: five, two, one, two 이므로 5212를 return 합니다.
+- 입출력 예 #6: zero, six 이므로 06을 return 합니다.
 ```
 
 
