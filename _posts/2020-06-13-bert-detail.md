@@ -5,8 +5,8 @@ categories: AI
 ---
 
 이전의 글에서
-- [BERT Structure](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md
-- [BERT Training](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-06-18-bert-pretrain.md
+- [BERT Structure](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md)
+- [BERT Training](https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-06-18-bert-pretrain.md)
 
 BERT의 Input에 대해서 Output이 어떻게 나오게 되는지 그리고 어떻게 학습되는지를 살펴봤다. 여러가지 이야기를 했지만 가장 중요한 내용은 하나다.
 ```
