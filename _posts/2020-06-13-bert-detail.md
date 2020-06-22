@@ -61,5 +61,8 @@ embeddings = inputs_embeds + position_embeddings + token_type_embeddings # (B,M,
 attention_mask = [1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0]
 ```
 
+huggingface에서 BERT를 학습할 때 `token_type_ids`, `attention_mask`를 `None`으로 뒀을 수도 있다. 그렇게 추측하는 이유는 이 두 변수를 optional하게 파라미터로 전달했으니까. 
+
 ### reference
 - https://github.com/huggingface/transformers/blob/master/notebooks/02-transformers.ipynb
+
