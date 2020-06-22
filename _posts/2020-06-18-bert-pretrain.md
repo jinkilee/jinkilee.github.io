@@ -4,7 +4,7 @@ date: 2020-06-18 08:26:28 -0400
 categories: AI
 ---
 
-이전의 글에서([**BERT Structure(https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md)**]) BERT의 Input에 대해서 Output이 어떻게 나오게 되는지를 살펴봤다. 이번에는 BERT가 학습하는 방법에 대해서 알아보고자 한다.
+이전의 글에서([**BERT Structure(https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md)**]) BERT의 Input에 대해서 Output이 어떻게 나오게 되는지를 살펴봤다. 이번에는 BERT를 학습하는 방법에 대해서 알아보고자 한다.
 
 BERT Pre-training
 ------------------------
@@ -115,7 +115,7 @@ Masked Language Model, MLM
 ```
 
 위의 `data`에서 masking된 부분(103)의 정답은 순서대로 아래와 같다.
-```
+```python
 mlm_label = [
 	29999,
 	30014,
@@ -140,6 +140,7 @@ mlm_label = [
 	100,
 	100
 ]
+```
 
 그런데 여기에서 중요한 것이 있다. 저 빈칸에 저 단어들만 들어갈 수 있는가? 즉, 저 빈 칸에 다른 단어는 들어가면 안되고 반드시 저 단어가 들어가야만 말이 되는 것인가? 꼭 그렇지 않다. 다른 단어를 넣어도 충분히 말이 될 수도 있다. 그래서 아래와 같은 규칙으로 빈칸을 레이블링한다.
 - 전체의 80%는 `[MASK]`로 정상적으로 마스킹
