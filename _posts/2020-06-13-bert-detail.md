@@ -11,10 +11,10 @@ BERT의 Input은 (B, M) shape의 vector이고 Output은 (B, M, E) shape의 vecto
 
 그런데 사실 BERT의 Input에 아래의 세가지가 더 들어간다. 아래의 내용들이 어떤 블록에 어떻게 들어가는지 알아보자.
 - `token_type_ids`
-- `head_mask`
+- `position_ids`
 - `attention_mask`
 
-### `token_type_ids`
+#### `token_type_ids`와 `position_ids`
 `token_type_ids`는 `sent_a`일경우 0, `sent_b`일 경우 1인 (B, M) shape의 vector이고, `position_ids`는 [0, M-1] 범위의 숫자를 갖는 (B, M) shape의 vector이다. `token_type_ids`와 `position_ids`를 만드는 과정을 파이선 코드로 간단하게 봐보자.
 
 ```python
@@ -36,10 +36,7 @@ token_type_embeddings = self.token_type_embeddings(token_type_ids)
 embeddings = inputs_embeds + position_embeddings + token_type_embeddings
 ```
 
-`token_type_ids`를 통해서 `sent_a`와 `sent_b`를 구분하는 것이다. 그리고 `position_ids`는 마치 attention처럼 강조하고자 하는 부분에 해당하는 embedding을 더해주는 느낌으로 생각하면 된다.  보통 `position_ids`는 0부터 M-1까지의 숫자를 차례대로 체우는 것으로 대신한다. 그런데 여기에서 중요한 것이 있다. 
-```
-`position_ids`로 인해서 같은 단어도 embedding이 다르게 될 수 있다.
-```
+`token_type_ids`를 통해서 `sent_a`와 `sent_b`를 구분하는 것이다. 그리고 `position_ids`는 마치 attention처럼 강조하고자 하는 부분에 해당하는 embedding을 더해주는 느낌으로 생각하면 된다.  보통 `position_ids`는 0부터 M-1까지의 숫자를 차례대로 체우는 것으로 대신한다. 그런데 여기에서 중요한 것이 있다. `position_ids`로 인해서 같은 단어도 embedding이 다르게 될 수 있다.
 
 그 이유는 embedding을 만들 때 아래와 같이 각각의 embedding을 모두 더해주기 때문이다.
 ```
@@ -52,30 +49,12 @@ embeddings = inputs_embeds + position_embeddings + token_type_embeddings
 
 위와 같이 연산을 하면 같은 hello라는 단어여도 앞에 나오는 hello의 embedding과 뒤에 나오는 hello의 embedding이 서로 다른 값이 된다.
 
-# FIXME
-`sent_a`와 `sent_b`가 무엇인지는 link에서 나오니 참고하면 된다.
-
-
-### `head_mask`와 `attention_mask`
-`sent_a`와 `sent_b`를 만들 때 각각 padding이 된다. `head_mask`는 padding값일 경우 1, 그렇지 않을 경우 0인 (B, M) shape의 vector이다. `attention_mask`는 attention을 적용할 곳은 1 그렇지 않을 곳은 0이 체워진 (B, M) shape의 vector이다.
-
-`head_mask`와 `attention_mask`는 `BertSelfAttention`에서만 쓰이는데, 아래와 같이 쓰인다.
+#### `attention_mask`
+`attention_mask`는 attention을 적용시켜줄 부분에 1, 그렇지 않을 부분에 0으로 표시한다. 위의 예를 이용해서 `attention_mask`를 만들면 아래와 같다.
 ```python
-# `attention_score`를 구하는 과정은 생략했다.
-attention_scores = attention_scores + attention_mask
-attention_probs = nn.Softmax(dim=-1)(attention_scores)
-attention_probs = self.dropout(attention_probs)
-
-if head_mask is not None:
-	attention_probs = attention_probs * head_mask
-
-context_layer = torch.matmul(attention_probs, value_layer)
-context_layer = context_layer.permute(0, 2, 1, 3).contiguous()
-...
+# padding 자리에 0, 나머지는 1
+attention_mask = [1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0]
 ```
-`attention_scores`에 `attention_mask`를 더해서 
-### TBD
-input이 더해진다는 것!! 내용 추가하기!!
 
-
-https://github.com/huggingface/transformers/blob/master/notebooks/02-transformers.ipynb
+#### reference
+- https://github.com/huggingface/transformers/blob/master/notebooks/02-transformers.ipynb
