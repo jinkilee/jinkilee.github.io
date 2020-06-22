@@ -4,9 +4,14 @@ date: 2020-06-13 08:26:28 -0400
 categories: AI
 ---
 
-이전의 글에서([**BERT Structure(https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md)**]) BERT의 Input에 대해서 Output이 어떻게 나오게 되는지를 살펴봤다. 여러가지 이야기를 했지만 가장 중요한 내용은 하나다.
+이전의 글에서
+- [**BERT Structure(https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-05-24-bert.md)**] 
+- [**BERT Training(https://github.com/jinkilee/jinkilee.github.io/blob/master/_posts/2020-06-18-bert-pretrain.md)**] 
+
+BERT의 Input에 대해서 Output이 어떻게 나오게 되는지 그리고 어떻게 학습되는지를 살펴봤다. 여러가지 이야기를 했지만 가장 중요한 내용은 하나다.
 ```
-BERT의 Input은 (B, M) shape의 vector이고 Output은 (B, M, E) shape의 vector이다.
+- BERT의 Input은 (B, M) shape의 vector이고 Output은 (B, M, E) shape의 vector이다.
+- BERT는 `sent_a`와 `sent_b`를 이용해서 MLM과 NSP를 이용해 학습한다.
 ```
 
 그런데 사실 BERT의 Input에 아래의 세가지가 더 들어간다. 아래의 내용들이 어떤 블록에 어떻게 들어가는지 알아보자.
