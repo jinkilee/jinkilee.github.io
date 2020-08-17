@@ -53,6 +53,7 @@ Training details
 
 ### Weight sharing
 말 그대로 학습된 Weight을 share하는 것이다. Generator와 Discriminator가 서로서로 Weight을 공유한다. Generator를 하나의 BERT 구조로 보고 Discriminator를 또 다른 BERT 구조로 봤을 떄 둘이는 서로 같은 구조이기 때문에 Weight을 공유할 수 있다. 
+
 ![weight sharing of ELECTRA](../img/electra_structure.png)
 
 그런데 여러번의 실험의 결과 Generator를 Discriminator보다 좀 작은 모델로 만드는 것이 좀 더 성능이 좋게 나왔다고 한다. 이럴 경우 Generator와 Discriminator의 파라미터 개수가 다르기 때문에 완전한 Weight sharing을 할 수 없다. 따라서 부분적으로 할 수 있는 부분만 찾아서 Weight sharing을 하는데, 그 부분이 token embedding과 positional embedding이다. 
@@ -62,6 +63,7 @@ Training details
 
 ### Smaller Generator
 위에서 언급한데로 ELECTRA에서 Discriminator보다 Generator의 크기를 더 작게 해서 사용한다. 실험 결과 Generator의 사이즈가 Discriminator 사이즈의 1/4에서 1/2 정도 됐을 때 성능이 가장 좋았다고 한다. 이 때, Generator 크기를 작게 하기 위해 레이어 사이즈를 줄이고 다른 파라미터는 같게 뒀다고 한다. 
+
 ![smaller generator](../img/small_generator.png)
 
 
