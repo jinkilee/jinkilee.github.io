@@ -72,7 +72,15 @@ BERT VS ELMo: 학습방법
 ------------------------
 BERT에서는 `I like an apple`에서 `an apple` 대신에 `a banana`가 들어갈 수 있는 가능성을 위해 일부는 정답을 바꿔서 일부러 틀리게 하는 학습 전략도 있었다. 하지만 ELMo는 그런 측면에서는 정직하게 다음 단어만을 맞추는 모델이다. 
 
+BERT VS ELMo: 구조
+------------------------
+기본적으로 BERT는 Transformer 기반의 구조이고, ELMo는 LSTM 기반의 구조이다. Transformer 기반과 LSTM 기반이 갖는 차이는 아래와 같다.
+- input/output dependancy
+- parallelization
 
+Input/output dependancy 같은 경우, 가령 `What do you like?`(input)라는 문장에 대한 output으로 `I like an apple`이 있다고 하자. input의 `like`와 가장 연관을 갖는 output의 단어는 `apple`(또는 `like`)일 것이다. 이렇게 집중(attention)되는 부분이 있는데, 이 부분을 Transformer는 attention mechanism을 통해서 구현하고, LSTM 기반은 memory cell에 의존한다. LSTM의 memory cell을 이용하면 자연스레 long-term dependancy가 생길 것이고 그로 인한 문제가 생길 수 있다. 하지만 Transformer의 경우 attention mechanism을 이용하기 떄문에 input의 i번째 단어가 output의 j번째 단어와 큰 연관이 있다는 것을 학습시킬 수 있다. 
+
+또한 LSTM의 memory cell 구조를 보면 LSTM은 parallelization이 힘들다는 것을 알 수 있다. 이전의 cell의 output을 다음 cell의 input으로 사용해야 하기 떄문에 parallelization이 불가능하다. 하지만 단순한 matrix 간의 linear한 연산으로 이루어진 attention mechanism의 경우 parallelization이 용이하다.
 
 
 
