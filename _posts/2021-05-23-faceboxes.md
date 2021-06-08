@@ -24,9 +24,7 @@ FaceBoxes의 속도를 빠르게 하는 모델 구조로, 이 논문에서는 RD
 | *Figure 1: FaceBoxes model architecture* |
 
 FaceBoxes의 input 이미지가 (1024x1024x3)의 크기를 가지고 있는데 RDCL에서 Convolution과 Pooling을 통해 빠르게 크기를 줄여나간다.
-
 특히 다루는 이미지의 크기가 가장 큰 Conv1의 경우에는 stride를 비교적 크게 설정했고(=4) 이로 인해서 Conv1 연산을 빠르게 끝낼 수 있다.
-
 Pool1과 Pool2에서 stride는 2인데 입력이 2D형태이기 때문에 크기는 4배씩 줄어들게 된다. 하나의 이미지를 FaceBoxes 모델에 forward 했을때 기대되는 각 단계별의 이미지 크기는 아래와 같다.
 
 ```
@@ -55,7 +53,6 @@ RDCL에서  약 310만 정도의 크기에서 13만 정도로 줄어들었다.  
 
 
 2.2. Multiple Scale Convolutional Layers (MSCL)
-
 input 이미지가 RDCL에서 너무 급격하게 줄어버리고 또 MSCL에서도 크기가 약 1/10로 줄어들게 되면 다양한 크기의 얼굴들을 다루기에는 피쳐가 좀 부족해진다.
 
 부족해진 피처를 강화시켜주기 위해 FaceBoxes에서는 두 가지 기법을 사용했다.
@@ -74,11 +71,8 @@ width를 이용한 해결책으로는 Inception 모듈을 사용하는 것이다
 Inception 모듈의 구조를 보면 Base를 4가지의 서로 다른 크기로 Conv를 수행해서 마지막에 모두 Concat하는 구조를 가지고 있다. 
 
 
-
 2.3. Anchor densification strategy
-
 FaceBoxes는 Anchor를 사용하는 모델이다. FaceBoxes에서는 무려 21,824개의 Anchor를 사용한다.
-
 왜 이렇게 많이 사용하게 되는지를 설명하면 Anchor densification strategy를 이해할 수 있다. 우선 Anchor를 1024x1024 크기에 플랏팅해보자.
 
 | ![Figure 3](http://jinkilee.github.io/img/faceboxes/3.png) |
@@ -86,15 +80,12 @@ FaceBoxes는 Anchor를 사용하는 모델이다. FaceBoxes에서는 무려 21,8
 | *Figure 3: Plotting anchors* |
 
 왼쪽 그림은 전체 21824개의 Anchor 중 1%만 그린 것이고 오른쪽 그림은 모두 다 그린 것이다. 1% 그림에서 보면 알겠지만 Anchor 사이즈가 다양하다.
-
 Anchor들을 모두 상하좌우로 타일링하는데 타일링하는 인터벌에 따라서 Anchor의 density(밀도)가 정해진다. 논문에서는 density 구하는 공식으로 아래의 식을 사용했다.
-
 실제 Anchor의 크기와 인터벌에 따라서 density가 어떻게 변하는지 보자.
 
 ```
 # 논문에서 소개한 밀도 구하는 공식
 밀도 = 크기 / 인터벌
- 
  
 # 실제 논문에서 사용되는 Anchor 밀도
 크기 = [32,64,128,256,512]
@@ -103,7 +94,6 @@ Anchor들을 모두 상하좌우로 타일링하는데 타일링하는 인터벌
 ```
 
 크기가 작은 Anchor의 밀도가 큰 Anchor의 밀도보다 작다. 이렇게 되면 Anchor의 밀도 차이 때문에 문제가 생긴다고 논문에서 말하고 있다.
-
 그래서 아래의 그림과 같이 크기가 작은 Anchor일 수록 더 많이 타일링 해줘서 밀도의 균형을 맞춰준다고 한다.
 
 | ![Figure 4](http://jinkilee.github.io/img/faceboxes/4.png) |
@@ -122,6 +112,5 @@ Anchor들을 모두 상하좌우로 타일링하는데 타일링하는 인터벌
 
 
 크기가 32인 Anchor의 경우 논문에서 소개한 Anchor Strategy를 사용할 경우 개수가 16배 증가한다. Anchor 크기가 64인 경우는 4배 증가한다.
-
 이와 같이 작은 사이즈의 Anchor에 대해서는 더 많은 Anchor를 추가함으로서 전체적으로 Anchor 밀도를 맞춰주는 전략을 취하고 있다.
 
