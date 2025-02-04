@@ -79,7 +79,7 @@ content:
         sub_title: Senior AI Engineer
         caption: October 2019 - Present
         quote: >
-            Focusing on AI deployment to optimize AI hardware and reduce business cost ...
+            "Focusing on AI deployment to optimize AI hardware and reduce business cost"
         description: | # this will include new lines to allow paragraphs
             Currently, I am an Senior AI Engineer for Vision AI. I am specialized to architect real-time vision application with multiple cameras and multiple AI models through maximizing GPU's CUDA/Tensor Core usage and managing CPU core usage with help of TensorRT and Triton Inference Server. I am not only handling 2D models with 2D cameras, but also 3D models such as Depth Estimation using LiDARs. 
             
@@ -93,7 +93,7 @@ content:
         sub_title: Junior AI Researcher
         caption: October 2016 - October 2019
         quote: >
-            Lots of ML researches for cyber security industry lead me to AI world, which made me to focus utilize AI as an automation tool.
+            "Lots of ML researches for cyber security industry lead me to AI world, which made me to focus utilize AI as an automation tool."
         description: | # this will include new lines to allow paragraphs
             I re-joined Ahnlab in 2016 as an AI researcher and performed many ML and AI researches to apply automation on SOC operation. Especially, I applied the idea of pre-training and fine-tuning concept on security log domain and developed a BERT model for security domain which was trained from scratch. The pre-trained BERT model for security domain was fine-tuned to be able to correctly classify pre-defined threats.
             
