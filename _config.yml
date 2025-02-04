@@ -76,16 +76,39 @@ content:
       - layout: left
         title: PoscoDX
         link: www.poscodx.com
-        # link_text: mycompany.com
         sub_title: Senior AI Engineer
         caption: October 2019 - Present
         quote: >
-            Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
+            Focusing on AI deployment to optimize AI hardware and reduce business cost ...
         description: | # this will include new lines to allow paragraphs
             Currently, I am an Senior AI Engineer for Vision AI. I am specialized to architect real-time vision application with multiple cameras and multiple AI models through maximizing GPU's CUDA/Tensor Core usage and managing CPU core usage with help of TensorRT and Triton Inference Server. I am not only handling 2D models with 2D cameras, but also 3D models such as Depth Estimation using LiDARs. 
             
             Also, I am researching about NPU inference runtime and compilation to deploy AI model in the real world application. After analyzing an ONNX format model, I compile and deploy the AI model for NPU device. I am also performing benchmark test for performance of NPU and its GPU-benchmark.
-
+            
+            As many vision AI models are being deployed over Posco factories for many industrial reasons, my role is very important since it can reduce the cost of business, increasing company's net profit.
+      
+      - layout: left
+        title: Ahnlab
+        link: www.ahnlab.com
+        sub_title: Junior AI Researcher
+        caption: October 2016 - October 2019
+        quote: >
+            Lots of ML researches for cyber security industry lead me to AI world, which made me to focus utilize AI as an automation tool.
+        description: | # this will include new lines to allow paragraphs
+            I re-joined Ahnlab in 2016 as an AI researcher and performed many ML and AI researches to apply automation on SOC operation. Especially, I applied the idea of pre-training and fine-tuning concept on security log domain and developed a BERT model for security domain which was trained from scratch. The pre-trained BERT model for security domain was fine-tuned to be able to correctly classify pre-defined threats.
+            
+            In SOC, my classification model for pre-defined threats could automate partial regular security analysis, which could reduce human resource for regular jobs.
+      
+      - layout: left
+        title: Ahnlab
+        link: www.ahnlab.com
+        sub_title: Junior Security Analyst
+        caption: July 2012 - Auguest 2015
+        quote: >
+            "Though this experience is far from AI, I believe that overall computer science knowledge and experience that I had made me much skillful AI Enginner."
+        description: | # this will include new lines to allow paragraphs
+            I joined Ahnlab in 2012 as a junior security analyst in 2012. I performed as a operator at Security Operation Centre, i.e. SOC. I analyzed real-time incoming network security logs from FW, WAF and IPS to protect customer's server assets until 2015. 
+            
   - title: Education # Title for the section
     layout: list # Type of content section (list/text)
     content:
