@@ -68,7 +68,7 @@ content:
         quote: >
           GPU Usage Maximization
         description: | # this will include new lines to allow paragraphs
-          I started this project to maximize GPU usage. Since I have seen many projects that use too expensive but idle GPUs and in a real-world application.
+          I started this project to maximize GPU usage. Since I have seen many projects that use too expensive but idle GPUs and in a real-world application. Utilizing GPU maximally let AI applications to use multiple models over multiple camera channels.
           
 
   - title: Experience # Title for the section
