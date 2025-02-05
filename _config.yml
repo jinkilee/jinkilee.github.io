@@ -110,7 +110,7 @@ content:
             I joined Ahnlab in 2012 as a junior security analyst in 2012. I performed as a operator at Security Operation Centre, i.e. SOC. I analyzed real-time incoming network security logs from FW, WAF and IPS to protect customer's server assets until 2015. 
             
   - title: Education # Title for the section
-    layout: text
+    layout: list
     content:
       - layout: left
         title: University of Warwick
