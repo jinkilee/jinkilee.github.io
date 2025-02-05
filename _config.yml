@@ -145,8 +145,7 @@ content:
     content:
       - layout: left
         title: Python
-        #quote: >
-        #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
+        caption: numpy, opencv, ultralytics, FaskAPI
         description: | # this will include new lines to allow paragraphs
           - Optimizing multiple thread execution over GIL
           - Acceleration using multiprocessing
@@ -154,16 +153,12 @@ content:
           
       - layout: left
         title: C++
-        #quote: >
-        #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
         description: | # this will include new lines to allow paragraphs
           - Writing custom python package in C++ to accelerate CPU usage or leaverage concurrency
           - Thread execution to increase concurrency
           
       - layout: left
         title: GPU
-        #quote: >
-        #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
         description: | # this will include new lines to allow paragraphs
           - TensorRT in C++/Python
           - Triton Inference Server leaveraging dynamic batching
@@ -172,8 +167,6 @@ content:
       
       - layout: left
         title: Others
-        quote: >
-          any other skills that I can utilize in working level.
         description: | # this will include new lines to allow paragraphs
           - Accustomed to Docker environment
           - Experience over different type of accelerator such as NCS2 and NPU
