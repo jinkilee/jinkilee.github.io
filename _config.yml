@@ -161,15 +161,24 @@ content:
           - Thread execution to increase concurrency
           
       - layout: left
-        title: C++
+        title: GPU
         #quote: >
         #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
         description: | # this will include new lines to allow paragraphs
           - TensorRT in C++/Python
           - Triton Inference Server leaveraging dynamic batching
           - Writing a custom TensorRT Plugin using CUDA programming
-          - Nsight Systems/Nsight Compute for profile GPU usage
+          - NsightSystems/Nsight Compute for profile GPU usage
       
+      - layout: left
+        title: Others
+        quote: >
+          any other skills that I can utilize in working level.
+        description: | # this will include new lines to allow paragraphs
+          - Accustomed to Docker environment
+          - Experience over different type of accelerator such as NCS2 and NPU
+          - Network packet anaysis, i.e. wireshark
+          
   - title: Skills
     layout: text
     content: | # this will include new lines to allow paragraphs
