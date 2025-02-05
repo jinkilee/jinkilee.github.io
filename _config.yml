@@ -145,7 +145,7 @@ content:
     content:
       - layout: left
         title: Python
-        caption: numpy, opencv, ultralytics, FaskAPI
+        caption: numpy, opencv, ultralytics, FastAPI
         description: | # this will include new lines to allow paragraphs
           - Optimizing multiple thread execution over GIL
           - Acceleration using multiprocessing
