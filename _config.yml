@@ -110,7 +110,7 @@ content:
             I joined Ahnlab in 2012 as a junior security analyst in 2012. I performed as a operator at Security Operation Centre, i.e. SOC. I analyzed real-time incoming network security logs from FW, WAF and IPS to protect customer's server assets until 2015. 
             
   - title: Education # Title for the section
-    layout: list # Type of content section (list/text)
+    layout: text
     content:
       - layout: left
         title: University of Warwick
@@ -118,26 +118,26 @@ content:
         sub_title: MSc Data Analysis
         #quote: >
         #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
-        description: | # this will include new lines to allow paragraphs
-          During my time at Harvard I learnt most of my key skills that have I have taken through my career such as teamwork and working to tight deadlines. I thouroughly enjoyed my time as university and learnt a lot about a healthy work life balance.
+        #description: | # this will include new lines to allow paragraphs
+        #  During my time at Harvard I learnt most of my key skills that have I have taken through my career such as teamwork and working to tight deadlines. I thouroughly enjoyed my time as university and learnt a lot about a healthy work life balance.
           
       - layout: left
         title: Sungkyunkwan University
         caption: 2008 - 2012
-        sub_title: MSc Computer Science
+        sub_title: BSc Computer Science
         #quote: >
         #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
-        description: | # this will include new lines to allow paragraphs
-          During my time at Harvard I learnt most of my key skills that have I have taken through my career such as teamwork and working to tight deadlines. I thouroughly enjoyed my time as university and learnt a lot about a healthy work life balance.
+        #description: | # this will include new lines to allow paragraphs
+          
           
       - layout: left
         title: Kookmin University
         caption: 2006 - 2008
-        sub_title: MSc Computer Science
+        sub_title: BSc Computer Science
         #quote: >
         #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
-        description: | # this will include new lines to allow paragraphs
-          During my time at Harvard I learnt most of my key skills that have I have taken through my career such as teamwork and working to tight deadlines. I thouroughly enjoyed my time as university and learnt a lot about a healthy work life balance.
+        #sdescription: | # this will include new lines to allow paragraphs
+          
 
           
   - title: Skills
