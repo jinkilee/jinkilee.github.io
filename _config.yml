@@ -63,20 +63,20 @@ content:
   - title: Projects
     layout: list
     content:
-      - layout: left
+      - layout: top-middle
         title: Edge-based Multi-Accelerator Inference System
         quote: >
-          GPU Usage Maximization??
+          GPU/NPU Runtime Optimization
         description: | # this will include new lines to allow paragraphs
           I developed a real-time safety monitoring inference system operating under tight latency constraints and hardware limitations. The solution leveraged asynchronous inference pipelines designed for heterogeneous GPU and NPU execution, allowing flexible deployment across edge environments. Performance was further optimized through TensorRT asynchronous execution and kernel fusion, GPU-resident postprocessing via custom TensorRT plugins, and mixed CPU/GPU preprocessing using NVIDIA DALI to minimize data transfer and synchronization overhead. This architecture enabled stable real-time inference, substantially reduced latency, and resulted in more than 50% savings in hardware infrastructure costs.
           
-    content:
-      - layout: left
+      - layout: top-middle
         title: High-Throughput Vision Inference Pipeline
         quote: >
           CPU/GPU Usage Maximization??
         description: | # this will include new lines to allow paragraphs
           I optimized a high-throughput vision inference pipeline that suffered from CPU-bound preprocessing and postprocessing bottlenecks. The pipeline was rearchitected to maintain GPU residency of data across preprocessing, inference, and postprocessing stages, reducing synchronization overhead and host-device transfers. Performance-critical components were reimplemented in C++ and seamlessly integrated into the Python-based inference workflow, while unnecessary CPU–GPU synchronization points were removed. As a result, the system achieved a notable improvement in throughput and more stable P99 latency in real-time inference scenarios.
+          
           
 
   - title: Experience # Title for the section
