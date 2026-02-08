@@ -13,41 +13,13 @@ email: jinkilee73@gmail.com
 location: Korea
 website: jinkilee.github.io
 
-# Dark Mode (true/false/never)
 darkmode: false
 
-# Social links
-#twitter_username: facespics
 github_username:  jinkilee
-# stackoverflow_username: "00000001"
-# dribbble_username: jekyll
-# facebook_username: jekyll
-# flickr_username: jekyll
+
 instagram_username: jinkilee73
 linkedin_username: jinki-lee-355546b1
-# xing_username: jekyll
-# pinterest_username: jekyll
-# youtube_username: globalmtb
-# googleplus_username: +jekyll
-# orcid_username: 0000-0000-0000-0000
 
-# Additional icon links
-#additional_links:
-#- title: itsgoingto.be
-#  icon: fas fa-globe
-#  url: https://www.itsgoingto.be
-# - title: another link
-#   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
-#   url: Link url (eg. https://google.com)
-
-# Google Analytics and Tag Manager
-# Using more than one of these may cause issues with reporting
-# gtm: "GTM-0000000"
-# gtag: "UA-00000000-0"
-# google_analytics: "UA-00000000-0"
-
-# About Section
-# about_title: About Me
 about_profile_image: images/jinki.jpg
 about_content: | # this will include new lines to allow paragraphs
   Senior AI Engineer specializing in low-latency, high-throughput inference systems
@@ -73,7 +45,7 @@ content:
       - layout: top-middle
         title: High-Throughput Vision Inference Pipeline
         quote: >
-          CPU/GPU Usage Maximization??
+          GPU Optimization using graph level kernel fusion
         description: | # this will include new lines to allow paragraphs
           I optimized a high-throughput vision inference pipeline that suffered from CPU-bound preprocessing and postprocessing bottlenecks. The pipeline was rearchitected to maintain GPU residency of data across preprocessing, inference, and postprocessing stages, reducing synchronization overhead and host-device transfers. Performance-critical components were reimplemented in C++ and seamlessly integrated into the Python-based inference workflow, while unnecessary CPU–GPU synchronization points were removed. As a result, the system achieved a notable improvement in throughput and more stable P99 latency in real-time inference scenarios.
           
@@ -129,21 +101,13 @@ content:
     content:
       - layout: left
         title: University of Warwick
-        #caption: 2015 - 2016
-        #sub_title: MSc Data Analysis
-        #quote: >
-        #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
-        description: | # this will include new lines to allow paragraphs
+        description: |
           - 2015-2016
           - MSc Data Analysis
           
       - layout: left
         title: Sungkyunkwan University
-        #caption: 2008 - 2012
-        #sub_title: BSc Computer Science
-        #quote: >
-        #  Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
-        description: | # this will include new lines to allow paragraphs
+        description: |
           - 2008 - 2012
           - BSc Computer Science
 
