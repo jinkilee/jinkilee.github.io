@@ -63,7 +63,7 @@ content:
   - title: Projects
     layout: list
     content:
-      - layout: top-middle
+      - layout: left
         title: Edge-based Multi-Accelerator Inference System
         quote: >
           GPU Usage Maximization??
@@ -71,7 +71,7 @@ content:
           I developed a real-time safety monitoring inference system operating under tight latency constraints and hardware limitations. The solution leveraged asynchronous inference pipelines designed for heterogeneous GPU and NPU execution, allowing flexible deployment across edge environments. Performance was further optimized through TensorRT asynchronous execution and kernel fusion, GPU-resident postprocessing via custom TensorRT plugins, and mixed CPU/GPU preprocessing using NVIDIA DALI to minimize data transfer and synchronization overhead. This architecture enabled stable real-time inference, substantially reduced latency, and resulted in more than 50% savings in hardware infrastructure costs.
           
     content:
-      - layout: top-middle
+      - layout: left
         title: High-Throughput Vision Inference Pipeline
         quote: >
           CPU/GPU Usage Maximization??
