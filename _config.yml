@@ -152,46 +152,31 @@ content:
     layout: list # Type of content section (list/text)
     content:
       - layout: left
-        title: Python
-        caption: numpy, opencv, ultralytics, FastAPI
+        title: Inference & Runtime
         description: | # this will include new lines to allow paragraphs
-          - Optimizing multiple thread execution over GIL
-          - Acceleration using multiprocessing
-          - Async execution
-          
-      - layout: left
-        title: C++
-        description: | # this will include new lines to allow paragraphs
-          - Writing custom python package in C++ to accelerate CPU usage or leaverage concurrency
-          - Thread execution to increase concurrency
-          
-      - layout: left
-        title: GPU
-        description: | # this will include new lines to allow paragraphs
-          - TensorRT in C++/Python
+          - TensorRT, Triton Inference Server
+          - Async inference pipelines
+          - GPU/NPU execution optimization
           - Triton Inference Server leaveraging dynamic batching
-          - Writing a custom TensorRT Plugin using CUDA programming
+
+      - layout: left
+        title: GPU & Cuda & TensorRT
+        description: | # this will include new lines to allow paragraphs
+          - CUDA, TensorRT Plugins
+          - Kernel fusion & graph-level optimization
+          - NVIDIA DALI, Nsight Systems / Compute
           - NsightSystems/Nsight Compute for profile GPU usage
+          - Writing a custom TensorRT Plugin using CUDA programming
+          - TensorRT in C++/Python
       
       - layout: left
-        title: Others
+        title: Deployment
         description: | # this will include new lines to allow paragraphs
-          - Accustomed to Docker environment
+          - Docker environment
           - Experience over different type of accelerator such as NCS2 and NPU
           - Network packet anaysis, i.e. wireshark
 
 
-#  - title: A Little More About Me
-#    layout: text
-#    content: | # this will include new lines to allow paragraphs
-#      Alongside my interests in networks and software engineering some of my other interests and hobbies are:
-#      - Rock climbing
-#      - Gaming
-#      - Knitting
-#      - [Becoming a ninja](https://www.youtube.com/watch?v=vtg4o__aRMg)
-#
-#      Look at this cool image  
-#      ![Trees](images/landscape-trees.jpg "Trees")
 
 # Footer
 footer_show_references: true
