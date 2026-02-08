@@ -7,8 +7,10 @@ version: 2
 
 # Personal info
 name: Jinki Lee
-title: Senior AI Engineer
+title: Senior AI Engineer – Inference & Performance Optimization
+description: 
 email: jinkilee73@gmail.com
+location: Korea
 website: jinkilee.github.io
 
 # Dark Mode (true/false/never)
@@ -48,27 +50,33 @@ linkedin_username: jinki-lee-355546b1
 # about_title: About Me
 about_profile_image: images/jinki.jpg
 about_content: | # this will include new lines to allow paragraphs
-  I am an AI Engineer at the PoscoDX, specialized at deploying 2D/3D vision models over multiple vision inputs, such as CCTV cameras or LiDARs. I have performed R&D for accelerating AI models in perspective of GPU usage optimization and computer science. I am also involved in deploying Edge-AI with NPUs.
+  Senior AI Engineer specializing in low-latency, high-throughput inference systems
+  with GPU and NPU optimization for production environments.
+  
+  Performance-oriented AI engineer specializing in low-latency, high-throughput inference systems across GPU and NPU accelerators in real-world production environments.
+  
+  I design and optimize end-to-end inference pipelines by identifying system-level bottlenecks across preprocessing, model execution, and postprocessing. My work focuses on async execution, accelerator-aware pipeline design, and low-level optimization to deliver measurable latency reduction and cost efficiency.
+  
+  I have deployed real-time inference systems in safety-critical and resource-constrained environments, achieving **over 50% infrastructure cost savings** through heterogeneous GPU/NPU strategies.
 
 content:
   - title: Projects
     layout: list
     content:
       - layout: top-middle
-        title: Multi-Channel & Multi-Camera Inference
-        #link: github.com/sproogen
-        # link_text: Project Website
-        #additional_links:
-        #  - title:  sproogen/modern-resume-theme
-        #    icon: fab fa-github
-        #    url: github.com/sproogen/modern-resume-theme
-        #  # - title:  Github page for project (eg. sproogen/modern-resume-theme)
-        #  #   icon: fab fa-github
-        #  #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
+        title: Edge-based Multi-Accelerator Inference System
         quote: >
-          GPU Usage Maximization
+          GPU Usage Maximization??
         description: | # this will include new lines to allow paragraphs
-          I started this project to maximize GPU usage. Since I have seen many projects that use too expensive but idle GPUs and in a real-world application. Utilizing GPU maximally let AI applications to use multiple models over multiple camera channels.
+          I developed a real-time safety monitoring inference system operating under tight latency constraints and hardware limitations. The solution leveraged asynchronous inference pipelines designed for heterogeneous GPU and NPU execution, allowing flexible deployment across edge environments. Performance was further optimized through TensorRT asynchronous execution and kernel fusion, GPU-resident postprocessing via custom TensorRT plugins, and mixed CPU/GPU preprocessing using NVIDIA DALI to minimize data transfer and synchronization overhead. This architecture enabled stable real-time inference, substantially reduced latency, and resulted in more than 50% savings in hardware infrastructure costs.
+          
+    content:
+      - layout: top-middle
+        title: High-Throughput Vision Inference Pipeline
+        quote: >
+          CPU/GPU Usage Maximization??
+        description: | # this will include new lines to allow paragraphs
+          I optimized a high-throughput vision inference pipeline that suffered from CPU-bound preprocessing and postprocessing bottlenecks. The pipeline was rearchitected to maintain GPU residency of data across preprocessing, inference, and postprocessing stages, reducing synchronization overhead and host-device transfers. Performance-critical components were reimplemented in C++ and seamlessly integrated into the Python-based inference workflow, while unnecessary CPU–GPU synchronization points were removed. As a result, the system achieved a notable improvement in throughput and more stable P99 latency in real-time inference scenarios.
           
 
   - title: Experience # Title for the section
@@ -82,11 +90,7 @@ content:
         quote: >
             "Focusing on AI deployment to optimize AI hardware and reduce business cost"
         description: | # this will include new lines to allow paragraphs
-            Currently, I am an Senior AI Engineer for Vision AI. I am specialized to architect real-time vision application with multiple cameras and multiple AI models through maximizing GPU's CUDA/Tensor Core usage and managing CPU core usage with help of TensorRT and Triton Inference Server. I am not only handling 2D models with 2D cameras, but also 3D models such as Depth Estimation using LiDARs. 
-            
-            Also, I am researching about NPU inference runtime and compilation to deploy AI model in the real world application. After analyzing an ONNX format model, I compile and deploy the AI model for NPU device. I am also performing benchmark test for performance of NPU and its GPU-benchmark.
-            
-            As many vision AI models are being deployed over Posco factories for many industrial reasons, my role is very important since it can reduce the cost of business, increasing company's net profit.
+            As a Senior AI Engineer at POSCO DX, I designed and optimized real-time AI inference pipelines for industrial safety and monitoring systems operating under strict latency and reliability requirements. I reduced end-to-end latency by restructuring asynchronous CPU–GPU execution flows and eliminating synchronization bottlenecks, while improving GPU utilization through TensorRT kernel fusion and execution graph optimization. Performance-critical postprocessing was fully offloaded to the GPU via custom TensorRT plugins, and mixed CPU/GPU preprocessing pipelines were implemented using NVIDIA DALI to overlap I/O and computation. I also integrated NPU-based inference by modifying ONNX graphs and adapting execution pipelines to accelerator-specific constraints. These systems were deployed across domestic industrial sites, overseas subsidiaries, and airport environments, resulting in stable real-time operation and more than 50% reduction in hardware infrastructure costs through heterogeneous accelerator strategies.
       
       - layout: left
         title: Ahnlab
@@ -109,7 +113,17 @@ content:
             "Though this experience is far from AI, I believe that overall computer science knowledge and experience that I had in this term made me much skillful AI Enginner."
         description: | # this will include new lines to allow paragraphs
             I joined Ahnlab in 2012 as a junior security analyst in 2012. I performed as a operator at Security Operation Centre, i.e. SOC. I analyzed real-time incoming network security logs from FW, WAF and IPS to protect customer's server assets until 2015. 
-            
+                      
+  - title: Publication # Title for the section
+    layout: list
+    content:
+      - layout: left
+        title: 안녕, 트랜스포머
+        caption: 2023 - 2024
+        sub_title: all about transformer architecture
+        description: |
+          I authored Hello, Transformer, a technical book written prior to the widespread adoption of large language models, aimed at introducing transformer architectures from first principles. The book focuses on core architectural concepts, implementation details, and practical code examples, enabling readers to build a strong foundational understanding of transformer-based models. Throughout the writing process, I continuously refined the content by validating concepts through hands-on experiments and maintaining accompanying code examples, strengthening both my technical depth and ability to communicate complex systems clearly.
+          
   - title: Education # Title for the section
     layout: list
     content:
