@@ -1,0 +1,75 @@
+cv:
+  name: Jinki Lee
+  label: Senior AI Engineer – Inference & Performance Optimization
+  email: jinkilee73@gmail.com
+  location: Korea
+  website: https://jinkilee.github.io
+  summary: >-
+    Performance-oriented AI engineer specializing in low-latency, high-throughput inference systems
+    across GPU and NPU accelerators in real-world production environments.
+
+  social_networks:
+    - network: GitHub
+      username: jinkilee
+    - network: LinkedIn
+      username: jinki-lee-355546b1
+
+  sections:
+    Experience:
+      - company: POSCO DX
+        position: Senior AI Engineer
+        url: https://www.poscodx.com
+        start_date: 2019-10
+        end_date: present
+        summary: Designed and optimized real-time AI inference pipelines for industrial safety and monitoring systems with strict latency and reliability requirements.
+        highlights:
+          - Reduced end-to-end latency by restructuring asynchronous CPU–GPU execution and removing synchronization bottlenecks.
+          - Improved GPU utilization through TensorRT kernel fusion and execution graph optimization.
+          - Offloaded performance-critical postprocessing to the GPU with custom TensorRT plugins; built mixed CPU/GPU preprocessing with NVIDIA DALI.
+          - Integrated NPU inference by modifying ONNX graphs and adapting pipelines to accelerator-specific constraints.
+          - Deployed across domestic industrial sites, overseas subsidiaries and airports, cutting hardware infrastructure cost by more than 50%.
+
+      - company: AhnLab
+        position: Junior AI Researcher
+        url: https://www.ahnlab.com
+        start_date: 2016-10
+        end_date: 2019-10
+        summary: ML and AI research to automate Security Operation Center (SOC) work.
+        highlights:
+          - Pre-trained a BERT model from scratch on security logs and fine-tuned it to classify pre-defined threats.
+          - Automated part of routine SOC analysis, reducing manual workload.
+
+      - company: AhnLab
+        position: Junior Security Analyst
+        url: https://www.ahnlab.com
+        start_date: 2012-07
+        end_date: 2015-08
+        summary: Operator at the Security Operation Center, analyzing real-time network security logs from FW, WAF and IPS to protect customer server assets.
+
+    Education:
+      - institution: University of Warwick
+        area: Data Analysis
+        studyType: MSc
+        start_date: 2015
+        end_date: 2016
+
+      - institution: Sungkyunkwan University
+        area: Computer Science
+        studyType: BSc
+        start_date: 2008
+        end_date: 2012
+
+    Publications:
+      - title: 안녕, 트랜스포머 (Hello, Transformer)
+        authors:
+          - Jinki Lee
+        releaseDate: 2024
+        summary: A technical book introducing transformer architectures from first principles, with implementation details and code examples.
+
+    Skills:
+      - name: Inference & Runtime
+        keywords: "TensorRT, Triton Inference Server (dynamic batching), async inference pipelines, GPU/NPU execution optimization"
+      - name: GPU & CUDA
+        keywords: "CUDA, custom TensorRT plugins, kernel fusion, graph-level optimization, NVIDIA DALI, Nsight Systems / Compute, TensorRT in C++/Python"
+      - name: Deployment
+        keywords: "Docker, edge accelerators (NCS2, NPU), network packet analysis (Wireshark)"
