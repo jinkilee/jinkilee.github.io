@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://jinkilee.github.io/sitemap.xml
