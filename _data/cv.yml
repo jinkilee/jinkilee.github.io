@@ -63,8 +63,19 @@ cv:
       - title: 안녕, 트랜스포머 (Hello, Transformer)
         authors:
           - Jinki Lee
-        releaseDate: 2024
+        releaseDate: 2022
         summary: A technical book introducing transformer architectures from first principles, with implementation details and code examples.
+      - title: "AlertVision: Visualizing Security Alerts"
+        authors:
+          - Jinki Lee et al.
+        publisher: WISA 2018
+        releaseDate: 2018
+        summary: Best Paper Award.
+      - title: PySpark 배우기 (Learning PySpark)
+        authors:
+          - Jinki Lee (translator)
+        releaseDate: 2017
+        summary: Korean translation.
 
     Skills:
       - name: Inference & Runtime
