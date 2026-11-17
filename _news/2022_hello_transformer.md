@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Published _안녕, 트랜스포머 (Hello, Transformer)_, a book on the transformer architecture from first principles. :books:
+Published [_안녕, 트랜스포머 (Hello, Transformer)_](https://www.yes24.com/product/goods/110850423), a book on the transformer architecture from first principles. :books:
