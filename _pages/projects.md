@@ -7,12 +7,9 @@ nav: true
 nav_order: 3
 ---
 
-<!-- pages/projects.md -->
-<div class="projects">
+<div class="project-grid">
 {% assign sorted_projects = site.projects | sort: "importance" %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
+{% for project in sorted_projects %}
+  {% include projects.liquid %}
+{% endfor %}
 </div>

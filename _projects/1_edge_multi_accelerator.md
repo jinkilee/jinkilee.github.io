@@ -4,6 +4,9 @@ title: Edge Multi-Accelerator Inference
 description: Real-time safety monitoring on GPU + NPU, with over 50% lower hardware cost.
 importance: 1
 category: work
+thumb_text: "GPU ⇄ NPU"
+thumb_gradient: "#b509ac, #6a5acd"
+tags: [TensorRT, NPU, DALI, CUDA]
 ---
 
 **GPU/NPU runtime optimization**
@@ -16,5 +19,3 @@ I developed a real-time safety monitoring inference system that runs under tight
 - NPU inference integrated by modifying ONNX graphs to fit accelerator-specific constraints
 
 The result is stable real-time inference, much lower latency, and **more than 50% savings** in hardware infrastructure cost.
-
-`TensorRT` `NPU` `DALI` `CUDA`
