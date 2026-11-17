@@ -1,7 +1,7 @@
 ---
 layout: page
-title: projects
-permalink: /projects/
+title: portfolio
+permalink: /portfolio/
 description: Inference systems I have designed and optimized.
 nav: true
 nav_order: 3

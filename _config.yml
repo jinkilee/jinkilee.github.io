@@ -194,6 +194,7 @@ collections:
     output: true
   projects:
     output: true
+    permalink: /portfolio/:path/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
