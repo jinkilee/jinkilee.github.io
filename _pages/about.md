@@ -13,6 +13,7 @@ profile:
     <p>MSc Warwick · BSc SKKU</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
+projects: true # project cards from _projects
 social: true # includes social icons at the bottom of the page
 
 announcements:

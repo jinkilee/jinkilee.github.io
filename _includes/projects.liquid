@@ -1,0 +1,23 @@
+{% comment %}
+  Local override of al_folio_core's project card (sample_a style):
+  gradient thumbnail with short text, small title, description and tag chips.
+  Front matter used: thumb_text, thumb_gradient, tags, img (optional, replaces the gradient).
+{% endcomment %}
+<a class="project-card" href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
+  {% if project.img %}
+    {% include figure.liquid loading="eager" path=project.img sizes="300px" alt="project thumbnail" class="project-thumb-img" %}
+  {% else %}
+    <div class="project-thumb" style="background: linear-gradient(135deg, {{ project.thumb_gradient | default: '#b509ac, #6a5acd' }})">
+      {{ project.thumb_text | default: project.title }}
+    </div>
+  {% endif %}
+  <div class="project-body">
+    <h3>{{ project.title }}</h3>
+    <p>{{ project.description }}</p>
+    {% if project.tags %}
+      <div class="project-tags">
+        {% for tag in project.tags %}<span>{{ tag }}</span>{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</a>
