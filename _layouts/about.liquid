@@ -3,7 +3,7 @@ layout: default
 ---
 {% comment %}
   Local override of al_folio_core's about layout.
-  Section order follows sample_a: bio, news, selected publications, projects, latest posts, contact.
+  Section order follows sample_a: bio, news, selected publications, portfolio, latest posts, contact.
 {% endcomment %}
 <div class="post about-page">
   <header class="post-header">
@@ -47,7 +47,7 @@ layout: default
     {% endif %}
 
     {% if page.projects %}
-      <h2 class="section-title" id="projects"><a href="{{ '/projects/' | relative_url }}">projects</a></h2>
+      <h2 class="section-title" id="portfolio"><a href="{{ '/portfolio/' | relative_url }}">portfolio</a></h2>
       <div class="project-grid">
         {% assign sorted_projects = site.projects | sort: 'importance' %}
         {% for project in sorted_projects %}
