@@ -31,4 +31,4 @@ I build low-latency, high-throughput inference systems on **GPU and NPU** hardwa
 
 At POSCO DX I run real-time vision inference for industrial safety and monitoring in steel plants: TensorRT optimization, Triton serving, and NPU benchmarking and integration. Heterogeneous GPU/NPU deployment cut our infrastructure cost by **more than 50%**.
 
-Before that I spent seven years at AhnLab, first as a SOC analyst and then building ML for SOC automation, including a security-domain BERT trained from scratch. I wrote _안녕, 트랜스포머 (Hello, Transformer)_, a Korean book that walks through the transformer architecture from first principles.
+Before that I spent seven years at AhnLab, first as a SOC analyst and then building ML for SOC automation, including a security-domain BERT trained from scratch. I wrote [_안녕, 트랜스포머 (Hello, Transformer)_](https://www.yes24.com/product/goods/110850423), a Korean book that walks through the transformer architecture from first principles.
