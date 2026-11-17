@@ -1,5 +1,12 @@
-## This is how I utilize docker
---------
+---
+layout: post
+title: How I use Docker for GPU/NPU dev environments
+date: 2026-01-18 09:00:00+0900
+description: versioned base images for GPU and NPU projects, and what comes next
+tags: docker npu
+categories: dev-env
+---
+
 #### 1. Creating my own dev environment
 I create my own docker environments for GPU/NPU usage. 
 ```
