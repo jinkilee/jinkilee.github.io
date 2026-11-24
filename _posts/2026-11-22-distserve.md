@@ -33,6 +33,12 @@ LLM 추론의 과정은 크기 프리필과 디코딩으로 나뉜다. 프리필
 
 KV-Cache가 어떻게 동작하는지 내가 잘 모르고 있었다. 프리필 과정에서는 재사용되는 Key, Value 없이 모두 일일이 계산한다. 프리필 과정에서 각 레이어에서 어텐션 연산을 할 때 Key와 Value 값을 레이어마다 저장한다. 그리고 디코딩 과정에서 ① 각 레이어의 연산을 진행할 때 지난 프리필 과정에서 저장해뒀던 Key, Value 값을 다시 사용한다. 그리고 ② 다음 토큰을 만드는 어텐션 연산을 실행하면서 생성된 Key, Value를 기존의 Key, Value에 업데이트한다. ①과 ②를 반복하여 계속 출력 토큰을 생성해낸다.
 
+
+<div class="text-center">
+  <img src="/assets/img/posts/distserve/kv_cache_prefill_decode_per_layer.png" alt="KV Cache 동작 Flow" class="img-fluid" style="max-width: 360px;">
+  <div class="caption">[그림1] KV Cache 동작 Flow</div>
+</div>
+
 ##### e) 노드와 클러스터
 
 노드는 GPU가 여러 개 달려있는 서버를 의미하고, 이런 노드들이 여러 개 묶여 있는 걸 클러스터라고 한다.
@@ -77,7 +83,7 @@ DistServe에서는 노드와 클러스터의 하드웨어에 따라서 두 가�
 
 <div class="text-center">
   <img src="/assets/img/posts/distserve/distserve_infiniband.png" alt="InfiniBand 케이블" class="img-fluid" style="max-width: 360px;">
-  <div class="caption">[그림1] InfiniBand 케이블</div>
+  <div class="caption">[그림2] InfiniBand 케이블</div>
 </div>
 
 ##### b) low node-affinity 클러스터
@@ -96,7 +102,7 @@ Infiniband를 가정한 환경이기 때문에 조금 쉽게 구성할 수 있�
 
 <div class="text-center">
   <img src="/assets/img/posts/distserve/distserve_high_node_affinity_token_flow.png" alt="High node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름" class="img-fluid">
-  <div class="caption">[그림2] High node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름</div>
+  <div class="caption">[그림3] High node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름</div>
 </div>
 
 위 그림에서 3번 과정에서 KV Cache가 다른 노드로 전송된다. InfiniBand에서는 KV Cache를 보내는 것도 무시할 수준의 영향이라는 판단이다.
@@ -107,7 +113,7 @@ low node affinity, 즉 노드들끼리의 유연함이 적은 환경에서의 �
 
 <div class="text-center">
   <img src="/assets/img/posts/distserve/distserve_low_node_affinity_token_flow_v2.png" alt="Low node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름" class="img-fluid">
-  <div class="caption">[그림3] Low node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름</div>
+  <div class="caption">[그림4] Low node-affinity 클러스터 구성에서의 prefill/decoding 구성과 연산 처리 흐름</div>
 </div>
 
 왜 위와 같이 구성할까? 보면, 같은 층의 범위에 해당하는 프리필과 디코딩이 하나의 노드에 존재하고 있다. 이렇게 두는 이유는 프리필 과정에서 계산된 KV-Cache 값이 다른 노드를 넘어갈 필요가 없도록 구성하기 위함이다. low node affinity 노드에 대해서도 NVLINK는 있다고 전제하고 있기 때문에 KV-Cache 값이 같은 노드에서는 빠른 속도로 이동할 수 있다.
