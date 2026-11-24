@@ -35,7 +35,7 @@ KV-Cache가 어떻게 동작하는지 내가 잘 모르고 있었다. 프리필 
 
 
 <div class="text-center">
-  <img src="/assets/img/posts/distserve/kv_cache_prefill_decode_per_layer.png" alt="KV Cache 동작 Flow" class="img-fluid" style="max-width: 360px;">
+  <img src="/assets/img/posts/distserve/kv_cache_prefill_decode_per_layer.png" alt="KV Cache 동작 Flow" class="img-fluid">
   <div class="caption">[그림1] KV Cache 동작 Flow</div>
 </div>
 
