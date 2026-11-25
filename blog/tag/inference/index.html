@@ -83,16 +83,11 @@ ninja.data = [{
           description: "Prompt-driven detection over up to four live camera streams with a vision-language model on an 8 GB GPU.",
           section: "Projects",handler: () => {
               window.location.href = "/portfolio/1_realtime_vlm/";
-            },},{id: "projects-high-throughput-vision-pipeline",
-          title: 'High-Throughput Vision Pipeline',
-          description: "GPU-resident data path and C++ hot paths for better throughput and P99 latency.",
+            },},{id: "projects-kv-cache-monitor",
+          title: 'KV Cache Monitor',
+          description: "Real-time per-GPU dashboard for vLLM serving that breaks GPU memory into model weights, KV cache and everything else.",
           section: "Projects",handler: () => {
-              window.location.href = "/portfolio/2_high_throughput_vision/";
-            },},{id: "projects-no-code-npu-platform",
-          title: 'No-code NPU Platform',
-          description: "Docker + UI platform for training with Ultralytics and deploying to NPUs through Triton.",
-          section: "Projects",handler: () => {
-              window.location.href = "/portfolio/3_nocode_npu_platform/";
+              window.location.href = "/portfolio/2_kv_cache_monitor/";
             },},{
         id: 'social-email',
         title: 'email',

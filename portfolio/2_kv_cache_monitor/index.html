@@ -1,0 +1,154 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> KV Cache Monitor | Jinki Lee </title> <meta name="author" content="Jinki Lee"> <meta name="description" content="Real-time per-GPU dashboard for vLLM serving that breaks GPU memory into model weights, KV cache and everything else."> <meta name="keywords" content="AI inference, TensorRT, Triton, CUDA, NPU, GPU optimization"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%9A%80&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=3116ba77db9ee1581d05bb3e86fbf7f1"> <link rel="canonical" href="https://jinkilee.github.io/portfolio/2_kv_cache_monitor/"> <script src="/assets/js/theme.js?v=5286c3e4c334d0ecb8fc0c40ff4fa7ec"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav sticky-bottom-footer"> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Jinki</span> Lee </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/portfolio/">portfolio <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">cv </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">KV Cache Monitor</h1> <p class="post-description">Real-time per-GPU dashboard for vLLM serving that breaks GPU memory into model weights, KV cache and everything else.</p> </header> <article> <p><strong>Live GPU memory and KV cache monitoring for vLLM</strong> · <a href="https://github.com/jinkilee/kvmon" rel="external nofollow noopener" target="_blank">GitHub</a></p> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/projects/kvmon_dashboard-480.webp 480w,/assets/img/projects/kvmon_dashboard-800.webp 800w,/assets/img/projects/kvmon_dashboard-1400.webp 1400w," type="image/webp" sizes="95vw"></source> <img src="/assets/img/projects/kvmon_dashboard.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" alt="kvmon dashboard" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </picture> </figure> <p>kvmon is a dashboard that runs next to a vLLM server and shows, for every GPU it detects, how memory is actually being spent while the model serves traffic.</p> <ul> <li> <strong>Memory breakdown</strong>: model weights / KV cache (in use · reserved but unused) / other / free</li> <li> <strong>Requests</strong>: arrivals per second, completions per second, running and waiting requests</li> <li> <strong>GPU utilization</strong>, memory read/write activity, and PCIe RX/TX throughput</li> <li>Refreshes every 2 seconds with a 5 min / 15 min / 1 h time range; GPUs that vLLM is not using are marked as such</li> </ul> <p><strong>Architecture.</strong> Three containers in Docker Compose: a <code class="language-plaintext highlighter-rouge">serving</code> container with the vLLM OpenAI server and a custom GPU exporter, Prometheus scraping both <code class="language-plaintext highlighter-rouge">/metrics</code> endpoints every 2 seconds, and an nginx frontend serving a dependency-free HTML/JS dashboard that proxies <code class="language-plaintext highlighter-rouge">/api/*</code> to Prometheus. A <code class="language-plaintext highlighter-rouge">bench.sh</code> script runs <code class="language-plaintext highlighter-rouge">vllm bench serve</code> inside the container, so the KV cache and request curves can be watched filling up under load.</p> <p><strong>How the numbers are derived.</strong> The exporter reads the vLLM log, NVML and vLLM’s own <code class="language-plaintext highlighter-rouge">/metrics</code> once per second.</p> <table> <thead> <tr> <th>Dashboard item</th> <th>Source</th> </tr> </thead> <tbody> <tr> <td>Model weights</td> <td>vLLM log <code class="language-plaintext highlighter-rouge">Model loading took X GiB</code> (per rank)</td> </tr> <tr> <td>KV cache reserved</td> <td>vLLM log <code class="language-plaintext highlighter-rouge">Available KV cache memory: X GiB</code> (per rank)</td> </tr> <tr> <td>KV cache in use</td> <td>reserved × <code class="language-plaintext highlighter-rouge">vllm:kv_cache_usage_perc</code> </td> </tr> <tr> <td>Other memory</td> <td>NVML used − model − KV reserved</td> </tr> <tr> <td>GPU utilization / memory R/W / PCIe</td> <td>NVML</td> </tr> </tbody> </table> <p>vLLM has no counter that increments when a request <em>arrives</em> — its request counters are recorded on completion. So the exporter publishes <code class="language-plaintext highlighter-rouge">completed (all reasons) + running + waiting</code> as a cumulative counter, and its rate gives the arrival rate. GPUs are matched to ranks by setting <code class="language-plaintext highlighter-rouge">CUDA_DEVICE_ORDER=PCI_BUS_ID</code> so NVML and CUDA agree on numbering, with vLLM assumed to take the first <code class="language-plaintext highlighter-rouge">TP × PP</code> GPUs.</p> </article> </div> </div> <footer class="sticky-bottom mt-5" role="contentinfo"> <div class="container"> © Copyright 2026 Jinki Lee. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-publications",
+          title: "publications",
+          description: "books and papers in reverse chronological order.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-portfolio",
+          title: "portfolio",
+          description: "Inference systems I have designed and optimized.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/portfolio/";
+          },
+        },{id: "nav-cv",
+          title: "cv",
+          description: "Download the PDF version with the button on the right.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-distserve-읽어보기",
+        
+          title: "DistServe 읽어보기",
+        
+        description: "프리필과 디코딩을 분리해 goodput을 최적화하는 LLM 서빙 논문 DistServe 정리",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/distserve/";
+          
+        },
+      },{id: "post-how-i-use-docker-for-gpu-npu-dev-environments",
+        
+          title: "How I use Docker for GPU/NPU dev environments",
+        
+        description: "versioned base images for GPU and NPU projects, and what comes next",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/docker-dev-environment/";
+          
+        },
+      },{id: "news-published-안녕-트랜스포머-hello-transformer-a-book-on-the-transformer-architecture-from-first-principles-books",
+          title: 'Published 안녕, 트랜스포머 (Hello, Transformer), a book on the transformer architecture from first...',
+          description: "",
+          section: "News",},{id: "news-moved-this-site-to-al-folio-new-posts-on-gpu-npu-inference-are-coming-rocket",
+          title: 'Moved this site to al-folio. New posts on GPU/NPU inference are coming. <img class="emoji" title=":rocket:" alt=":rocket:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f680.png" height="20" width="20">...',
+          description: "",
+          section: "News",},{id: "projects-real-time-vlm-video-monitoring",
+          title: 'Real-Time VLM Video Monitoring',
+          description: "Prompt-driven detection over up to four live camera streams with a vision-language model on an 8 GB GPU.",
+          section: "Projects",handler: () => {
+              window.location.href = "/portfolio/1_realtime_vlm/";
+            },},{id: "projects-kv-cache-monitor",
+          title: 'KV Cache Monitor',
+          description: "Real-time per-GPU dashboard for vLLM serving that breaks GPU memory into model weights, KV cache and everything else.",
+          section: "Projects",handler: () => {
+              window.location.href = "/portfolio/2_kv_cache_monitor/";
+            },},{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%6A%69%6E%6B%69%6C%65%65%37%33@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/jinkilee", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/jinki-lee-355546b1", "_blank");
+        },
+      },{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/JinkiLee-CV.pdf", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
